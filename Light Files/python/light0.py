@@ -3,5 +3,5 @@ from time import sleep
 alpha = 16
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(alpha, GPIO.OUT)
-GPIO.write(alpha, 1)
+GPIO.output(alpha, 1)
 GPIO.cleanup()
