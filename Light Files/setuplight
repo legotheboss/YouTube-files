@@ -7,6 +7,6 @@ sudo mv Zgjpwx Light_accessory.js
 cd /home/pi/HAP-NodeJS/python
 sudo wget https://goo.gl/gVXDFw
 sudo mv gVXDFw light0.py
-sudo wget https://goo.gl/PFoJFd
+sudo wget https://goo.gl/ojDhVH
 sudo mv PFoJFd light1.py
 echo "Process Complete :)"
