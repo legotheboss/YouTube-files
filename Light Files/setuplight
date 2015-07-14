@@ -8,5 +8,5 @@ cd /home/pi/HAP-NodeJS/python
 sudo wget https://goo.gl/gVXDFw
 sudo mv gVXDFw light0.py
 sudo wget https://goo.gl/ojDhVH
-sudo mv PFoJFd light1.py
+sudo mv ojDhVH light1.py
 echo "Process Complete :)"
