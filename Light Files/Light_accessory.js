@@ -105,7 +105,7 @@ exports.accessory = {
 		initialValue: 0,
 		supportEvents: false,
 		supportBonjour: false,
-		manfDescription: “Doesn’t actually adjust Hue of Light",
+		manfDescription: "Doesn’t actually adjust Hue of Light",
 		designedMinValue: 0,
 		designedMaxValue: 360,
 		designedMinStep: 1,
