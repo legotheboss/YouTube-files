@@ -2,16 +2,16 @@ clear
 echo 'Starting Installation...'
 sleep 2
 cd /home/pi
-apt-get update && apt-get upgrade -y
-apt-get install motion ffmpeg v4l-utils python-dev python-pip libssl-dev libjpeg-dev libcurl4-openssl-dev -y
-pip install tornado==4.1 jinja2 pillow pycurl
+sudo apt-get update && apt-get upgrade -y
+sudo apt-get install motion ffmpeg v4l-utils python-dev python-pip libssl-dev libjpeg-dev libcurl4-openssl-dev -y
+sudo pip install tornado==4.1 jinja2 pillow pycurl
 git clone https://bitbucket.org/ccrisan/motioneye.git
 cd motioneye/
 cp settings_default.py settings.py
 cd /etc
-rm -rf rc.local
-wget https://goo.gl/69kvdv
-mv 69kvdv rc.local
+sudo rm -rf rc.local
+sudo wget https://goo.gl/69kvdv
+sudo mv 69kvdv rc.local
 cd /home/pi/
 clear
 echo 'Installation Complete! Preparing to REBOOT :)'
