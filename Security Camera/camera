@@ -8,6 +8,7 @@ sudo pip install tornado==4.1 jinja2 pillow pycurl
 git clone https://bitbucket.org/ccrisan/motioneye.git
 cd motioneye/
 cp settings_default.py settings.py
+mkdir run
 cd /etc
 sudo rm -rf rc.local
 sudo wget https://goo.gl/69kvdv
