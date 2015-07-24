@@ -13,6 +13,8 @@ cd /etc
 sudo rm -rf rc.local
 sudo wget https://goo.gl/69kvdv
 sudo mv 69kvdv rc.local
+sudo chmod +x rc.local
+sudo chmod 777 rc.local
 cd /home/pi/
 clear
 echo 'Installation Complete! Preparing to REBOOT :)'

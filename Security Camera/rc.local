@@ -17,6 +17,6 @@ if [ "$_IP" ]; then
   printf "My IP address is %s\n" "$_IP"
 fi
 
-sudo sh -c '/home/pi/motioneye/motioneye.py > /home/pi/motioneye/run/motioneye.log 2>&1' &
+sudo -u pi sh -c '/home/pi/motioneye/motioneye.py > /home/pi/motioneye/run/motioneye.log 2>&1' &
 
 exit 0
