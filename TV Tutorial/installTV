@@ -1,0 +1,32 @@
+sudo apt-get update 
+sudo apt-get upgrade -y
+cd /home/pi/
+clear
+echo "starting installation of node modules"
+sleep 1
+cd HAP-NodeJS/
+sudo npm install node-cmd
+clear
+echo "installing accessories"
+sleep 1
+cd accessories/
+sudo wget https://raw.githubusercontent.com/legotheboss/YouTube-files/master/TV%20Tutorial/TV_accessory.js
+cd ..
+clear
+echo "starting installation of plugins"
+sleep 1
+sudo mkdir TV
+cd TV/
+sudo wget https://raw.githubusercontent.com/legotheboss/YouTube-files/master/TV%20Tutorial/TV/tvON
+sudo wget https://raw.githubusercontent.com/legotheboss/YouTube-files/master/TV%20Tutorial/TV/tvOFF
+cd /home/pi/
+clear
+echo "starting installation of libcec"
+sleep 1
+sudo wget https://raw.githubusercontent.com/legotheboss/YouTube-files/master/TV%20Tutorial/libcec
+sudo chmod +x libcec
+sudo chmod 777 libcec
+sudo sh libcec
+clear
+echo "Process complete"
+
