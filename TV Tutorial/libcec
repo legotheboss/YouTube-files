@@ -1,0 +1,22 @@
+sudo apt-get install cmake g++-4.8 liblockdev1-dev libudev-dev libxrandr-dev python-dev swig -y
+
+cd ~
+git clone --recursive git://github.com/Pulse-Eight/libcec.git
+
+cd ~/libcec/src/platform
+mkdir build
+cd build
+cmake -DCMAKE_CXX_COMPILER=g++-4.8 ..
+make -j4
+sudo make install -j4
+
+cd ~/libcec
+mkdir build
+cd build
+export LIBRARY_PATH=/opt/vc/lib
+cmake -DCMAKE_CXX_COMPILER=g++-4.8 -DRPI_INCLUDE_DIR=/opt/vc/include -DRPI_LIB_DIR=/opt/vc/lib -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=/usr ..
+cmake -DCMAKE_CXX_COMPILER=g++-4.8 -DRPI_INCLUDE_DIR=/opt/vc/include -DRPI_LIB_DIR=/opt/vc/lib -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=/usr ..
+# You may have to run cmake twice, sometimes cmake has some caching issues
+
+make -j4
+sudo -E bash -c 'make install -j4'
