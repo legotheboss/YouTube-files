@@ -23,6 +23,9 @@ cd /home/pi/
 clear
 echo "starting installation of libcec"
 sleep 1
+sudo su
+sudo echo "hdmi_ignore_cec_init=1" >> /boot/config.txt
+exit
 sudo wget https://raw.githubusercontent.com/legotheboss/YouTube-files/master/TV%20Tutorial/libcec
 sudo chmod +x libcec
 sudo chmod 777 libcec
