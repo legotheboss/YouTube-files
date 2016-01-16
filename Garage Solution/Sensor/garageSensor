@@ -1,0 +1,22 @@
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install git-core -y
+cd /home/pi
+git clone git://git.drogon.net/wiringPi
+cd wiringPi
+./build
+cd /home/pi
+cd HAP-NodeJS/
+sudo mkdir python
+cd python
+sudo wget https://goo.gl/Tcdppb
+sudo mv Tcdppb garage.py
+cd ..
+sudo npm install wiring-pi
+sudo npm install node-cmd
+cd accessories/
+sudo wget https://goo.gl/JSyJcK
+sudo mv JsyJck GarageDoorOpener_accessory.js
+clear
+echo "Done with Installation :)"
+

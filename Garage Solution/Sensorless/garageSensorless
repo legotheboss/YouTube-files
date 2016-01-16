@@ -1,0 +1,17 @@
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install git-core -y
+cd /home/pi
+cd HAP-NodeJS/
+sudo mkdir python
+cd python/
+sudo wget https://goo.gl/Tcdppb
+sudo mv Tcdppb garage.py
+cd ..
+sudo npm install node-cmd
+cd accessories/
+sudo wget https://goo.gl/walILo
+sudo mv walILo GarageDoorOpener_accessory.js
+clear
+echo "Done with Installation :)"
+
