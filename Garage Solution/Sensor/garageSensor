@@ -16,7 +16,7 @@ sudo npm install wiring-pi
 sudo npm install node-cmd
 cd accessories/
 sudo wget https://goo.gl/JSyJcK
-sudo mv JsyJck GarageDoorOpener_accessory.js
+sudo mv JSyJck GarageDoorOpener_accessory.js
 clear
 echo "Done with Installation :)"
 
