@@ -10,6 +10,7 @@ sudo mv Tcdppb garage.py
 cd ..
 sudo npm install node-cmd
 cd accessories/
+sudo rm -rf GarageDoorOpener_accessory.js
 sudo wget https://goo.gl/walILo
 sudo mv walILo GarageDoorOpener_accessory.js
 clear
