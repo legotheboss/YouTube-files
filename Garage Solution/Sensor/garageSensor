@@ -17,7 +17,7 @@ sudo npm install node-cmd
 cd accessories/
 sudo rm -rf GarageDoorOpener_accessory.js
 sudo wget https://goo.gl/JSyJcK
-sudo mv JSyJck GarageDoorOpener_accessory.js
+sudo mv JSyJcK GarageDoorOpener_accessory.js
 clear
 echo "Done with Installation :)"
 
