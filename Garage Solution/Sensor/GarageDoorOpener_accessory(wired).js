@@ -4,7 +4,7 @@ var exports = module.exports = {};
 var cmd=require('node-cmd');
 var wpi = require('wiring-pi');
 var execute = function(accessory,characteristic,value) {
-  console.log("executed accessory: " + accessory + ", and characteristic: " + characteristic + ", with value: " +  value + "."); 
+  console.log("executed accessory: " + accessory + ", and characteristic: " + characteristic + ", with value: " +  value + ".");
 };
 
 exports.accessory = {
@@ -12,9 +12,9 @@ exports.accessory = {
   username: "3C:5A:3D:EE:5E:FA",
   pincode: "031-45-154",
   services: [{
-    sType: types.ACCESSORY_INFORMATION_STYPE, 
+    sType: types.ACCESSORY_INFORMATION_STYPE,
     characteristics: [{
-      cType: types.NAME_CTYPE, 
+      cType: types.NAME_CTYPE,
       onUpdate: null,
       perms: ["pr"],
       format: "string",
@@ -22,9 +22,9 @@ exports.accessory = {
       supportEvents: false,
       supportBonjour: false,
       manfDescription: "Name of the accessory",
-      designedMaxLength: 255    
+      designedMaxLength: 255
     },{
-      cType: types.MANUFACTURER_CTYPE, 
+      cType: types.MANUFACTURER_CTYPE,
       onUpdate: null,
       perms: ["pr"],
       format: "string",
@@ -32,7 +32,7 @@ exports.accessory = {
       supportEvents: false,
       supportBonjour: false,
       manfDescription: "Manufacturer",
-      designedMaxLength: 255    
+      designedMaxLength: 255
     },{
       cType: types.MODEL_CTYPE,
       onUpdate: null,
@@ -42,9 +42,9 @@ exports.accessory = {
       supportEvents: false,
       supportBonjour: false,
       manfDescription: "Model",
-      designedMaxLength: 255    
+      designedMaxLength: 255
     },{
-      cType: types.SERIAL_NUMBER_CTYPE, 
+      cType: types.SERIAL_NUMBER_CTYPE,
       onUpdate: null,
       perms: ["pr"],
       format: "string",
@@ -52,9 +52,9 @@ exports.accessory = {
       supportEvents: false,
       supportBonjour: false,
       manfDescription: "SN",
-      designedMaxLength: 255    
+      designedMaxLength: 255
     },{
-      cType: types.IDENTIFY_CTYPE, 
+      cType: types.IDENTIFY_CTYPE,
       onUpdate: null,
       perms: ["pw"],
       format: "bool",
@@ -62,10 +62,10 @@ exports.accessory = {
       supportEvents: false,
       supportBonjour: false,
       manfDescription: "Identify Accessory",
-      designedMaxLength: 1    
+      designedMaxLength: 1
     }]
   },{
-    sType: types.GARAGE_DOOR_OPENER_STYPE, 
+    sType: types.GARAGE_DOOR_OPENER_STYPE,
     characteristics: [{
       cType: types.NAME_CTYPE,
       onUpdate: null,
@@ -75,12 +75,12 @@ exports.accessory = {
       supportEvents: false,
       supportBonjour: false,
       manfDescription: "Name of service",
-      designedMaxLength: 255   
+      designedMaxLength: 255
     },{
       cType: types.CURRENT_DOOR_STATE_CTYPE,
-      onUpdate: function(value) { 
-        console.log("Change:",value); 
-        execute("Garage Door - current door state", "Current State", value); 
+      onUpdate: function(value) {
+        console.log("Change:",value);
+        execute("Garage Door - current door state", "Current State", value);
       },
       onRead: function(callback) {
         console.log("Read:");
@@ -99,13 +99,22 @@ exports.accessory = {
       designedMinValue: 0,
       designedMaxValue: 4,
       designedMinStep: 1,
-      designedMaxLength: 1    
+      designedMaxLength: 1
     },{
       cType: types.TARGET_DOORSTATE_CTYPE,
-      onUpdate: function(value) { 
-        console.log("Change:",value); 
+      onUpdate: function(value) {
+        console.log("Garage Door Change:",value);
         execute("Garage Door - target door state", "Current State", value);
-        cmd.run('sudo python /home/pi/HAP-NodeJS/python/garage.py');
+        var mainUpdate = wpi.digitalRead(12);
+        var mainStatus = mainUpdate;
+        var garageStatus = 1 - mainStatus;
+        if (value != garageStatus)
+        {
+            cmd.run('sudo python /home/pi/HAP-NodeJS/python/garage.py'); //executing script
+            console.log("Correct command");
+        } else {
+            console.log("False command");
+        }
       },
       onRead: function(callback) {
         console.log("Read:");
@@ -123,17 +132,17 @@ exports.accessory = {
       designedMinValue: 0,
       designedMaxValue: 1,
       designedMinStep: 1,
-      designedMaxLength: 1    
+      designedMaxLength: 1
     },{
       cType: types.OBSTRUCTION_DETECTED_CTYPE,
-      onUpdate: function(value) { 
-        console.log("Change:",value); 
-        execute("Garage Door - obstruction detected", "Current State", value); 
+      onUpdate: function(value) {
+        console.log("Change:",value);
+        execute("Garage Door - obstruction detected", "Current State", value);
       },
       onRead: function(callback) {
         console.log("Read:");
         execute("Garage Door - obstruction detected", "Current State", null);
-        callback(undefined); // only testing, we have no physical device to read from
+        callback(false); // only testing, we have no physical device to read from
       },
       perms: ["pr","ev"],
       format: "bool",
