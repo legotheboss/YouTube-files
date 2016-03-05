@@ -4,5 +4,7 @@ sudo mv GwjodS TemperatureSensor_accessory.js
 cd ..
 sudo npm install ds18b20
 sudo modprobe w1-gpio && sudo modprobe w1_therm
+sudo echo 'w1-gpio' >> /etc/modules
+sudo echo "w1_therm" >> /etc/modules
 clear
 echo 'All Done!'
