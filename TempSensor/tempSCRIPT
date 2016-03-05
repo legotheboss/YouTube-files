@@ -1,0 +1,6 @@
+cd /home/pi/HAP-NodeJS/accessories
+sudo wget https://goo.gl/GwjodS 
+sudo mv GwjodS TemperatureSensor_accessory.js 
+cd ..
+sudo npm install ds18b20
+
