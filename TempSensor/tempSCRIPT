@@ -3,4 +3,4 @@ sudo wget https://goo.gl/GwjodS
 sudo mv GwjodS TemperatureSensor_accessory.js 
 cd ..
 sudo npm install ds18b20
-
+sudo modprobe w1-gpio && sudo modprobe w1_therm
