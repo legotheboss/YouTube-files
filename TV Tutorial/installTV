@@ -1,6 +1,6 @@
 sudo apt-get update 
 sudo apt-get upgrade -y
-cd /home/pi/
+cd ~
 clear
 echo "starting installation of node modules"
 sleep 1
@@ -19,7 +19,7 @@ sudo mkdir TV
 cd TV/
 sudo wget https://raw.githubusercontent.com/legotheboss/YouTube-files/master/TV%20Tutorial/TV/tvON
 sudo wget https://raw.githubusercontent.com/legotheboss/YouTube-files/master/TV%20Tutorial/TV/tvOFF
-cd /home/pi/
+cd ~
 clear
 echo "starting installation of libcec"
 sleep 1
