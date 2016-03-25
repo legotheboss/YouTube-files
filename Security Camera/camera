@@ -1,23 +1,19 @@
 clear
-echo 'Starting Installation...'
-sleep 2
-cd /home/pi
-sudo apt-get update && apt-get upgrade -y
-sudo apt-get install motion ffmpeg v4l-utils python-dev python-pip libssl-dev libjpeg-dev libcurl4-openssl-dev -y
-sudo pip install tornado==4.1 jinja2 pillow pycurl
-git clone https://bitbucket.org/ccrisan/motioneye.git
-cd motioneye/
-cp settings_default.py settings.py
-mkdir run
-cd /etc
-sudo rm -rf rc.local
-sudo wget https://goo.gl/69kvdv
-sudo mv 69kvdv rc.local
-sudo chmod +x rc.local
-sudo chmod 777 rc.local
-cd /home/pi/
+echo "Starting Installation"
+sleep 1
 clear
-echo 'Installation Complete! Preparing to REBOOT :)'
-sleep 5
-sudo reboot
-
+cd /home/pi
+sudo wget https://github.com/ccrisan/motioneye/wiki/precompiled/ffmpeg_2.8.3.git325b593-1_armhf.deb
+sudo dpkg -i ffmpeg_2.8.3.git325b593-1_armhf.deb
+sudo apt-get remove libavcodec-extra-56 libavformat56 libavresample2 libavutil54
+sudo apt-get install libavutil54 libavformat56 libswscale3 -y
+sudo apt-get install motion -y
+sudo apt-get install python-pip python-dev curl libssl-dev libcurl4-openssl-dev libjpeg-dev -y
+sudo pip install motioneye
+sudo mkdir -p /etc/motioneye
+sudo cp /usr/local/share/motioneye/extra/motioneye.conf.sample /etc/motioneye/motioneye.conf
+sudo mkdir -p /var/lib/motioneye
+sudo cp /usr/local/share/motioneye/extra/motioneye.systemd-unit-local /etc/systemd/system/motioneye.service
+sudo systemctl daemon-reload
+sudo systemctl enable motioneye
+sudo systemctl start motioneye
