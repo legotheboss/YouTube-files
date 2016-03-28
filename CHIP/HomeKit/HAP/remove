@@ -1,0 +1,8 @@
+clear 
+sudo apt-get remove node git-core libnss-mdns libavahi-compat-libdnssd-dev python -y 
+sudo apt-get autoremove
+cd ~
+sudo rm -rf HAP* 
+sudo apt-get clear all  
+clear
+echo 'Removal Complete'

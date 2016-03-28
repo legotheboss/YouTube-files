@@ -1,0 +1,21 @@
+clear 
+sudo apt-get install git-core libnss-mdns libavahi-compat-libdnssd-dev python -y 
+cd ~
+wget http://node-arm.herokuapp.com/node_latest_armhf.deb
+sudo dpkg -i node_*
+clear
+echo 'The Node Version is'
+node -v
+echo 'The NPM Version is'
+npm -v
+sleep 2
+clear
+cd ~
+sudo rn -rf node_*
+sudo npm install -g node-gyp
+git clone https://github.com/KhaosT/HAP-NodeJS.git
+cd HAP*
+sudo npm install
+sudo apt-get clean all
+clear
+echo 'Installation Complete'
