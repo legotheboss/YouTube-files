@@ -11,7 +11,7 @@ npm -v
 sleep 2
 clear
 cd ~
-sudo rn -rf node_*
+sudo rm -rf node_*
 sudo npm install -g node-gyp
 git clone https://github.com/KhaosT/HAP-NodeJS.git
 cd HAP*
