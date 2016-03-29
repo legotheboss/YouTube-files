@@ -3,8 +3,9 @@ var Accessory = require('../').Accessory;
 var Service = require('../').Service;
 var Characteristic = require('../').Characteristic;
 var uuid = require('../').uuid;
+var secondaryName = 'testpilot' //enter a single random word here
 var serviceName = 'Relay Light' //enter the name you want here
-var lightDIR = '/etc/relayLight'
+var lightDIR = '/etc/relayLight'  //enter the directory of the scripts here
 
 var FAKE_LIGHT = {
   powerOn: false,
@@ -28,7 +29,7 @@ var FAKE_LIGHT = {
 // Generate a consistent UUID for our light Accessory that will remain the same even when
 // restarting our server. We use the `uuid.generate` helper function to create a deterministic
 // UUID based on an arbitrary "namespace" and the word "light".
-var lightUUID = uuid.generate('hap-nodejs:accessories:light');
+var lightUUID = uuid.generate('hap-nodejs:accessories:'+secondaryName);
 
 // This is the Accessory that we'll return to HAP-NodeJS that represents our fake light.
 var light = exports.accessory = new Accessory(serviceName, lightUUID);
