@@ -1,0 +1,5 @@
+import pin
+import CHIP_IO.GPIO as GPIO
+GPIO.setup(pin.pin, GPIO.OUT)
+GPIO.output(pin.pin, GPIO.LOW)
+GPIO.cleanup()
