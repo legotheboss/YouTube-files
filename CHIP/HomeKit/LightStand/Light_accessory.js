@@ -5,7 +5,7 @@ var Characteristic = require('../').Characteristic;
 var uuid = require('../').uuid;
 var secondaryName = 'testpilot' //enter a single random word here
 var serviceName = 'Relay Light' //enter the name you want here
-var lightDIR = '/etc/relayLight'  //enter the directory of the scripts here
+var lightDIR = '/srv/relayLight'  //enter the directory of the scripts here
 
 var FAKE_LIGHT = {
   powerOn: false,
