@@ -12,5 +12,7 @@ cd HAP-NodeJS/accessories/
 sudo rm Light_a*
 sudo wget https://goo.gl/oDnXu9
 sudo mv oDnXu9 Light_accessory.js
+cd ~
+rm 3uySg8
 clear 
 echo "Download2 Complete"
