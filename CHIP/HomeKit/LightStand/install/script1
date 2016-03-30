@@ -3,3 +3,4 @@ sudo wget https://raw.githubusercontent.com/legotheboss/YouTube-files/master/CHI
 sudo wget https://raw.githubusercontent.com/legotheboss/YouTube-files/master/CHIP/HomeKit/LightStand/fileDirectory/pin.py
 clear
 echo "Download1 complete"
+sudo rm -rf k9njaC
