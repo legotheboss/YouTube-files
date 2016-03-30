@@ -1,0 +1,16 @@
+cd ~
+sudo ntpdate pool.ntp.org
+sudo apt-get update
+sudo apt-get install build-essential python-dev python-pip -y
+git clone git://github.com/xtacocorex/CHIP_IO.git
+cd CHIP_IO
+sudo python setup.py install
+cd ..
+sudo rm -rf CHIP_IO
+cd ~
+cd HAP-NodeJS/accessories/
+sudo rm Light_a*
+sudo wget https://goo.gl/oDnXu9
+sudo mv oDnXu9 Light_accessory.js
+clear 
+echo "Download2 Complete"

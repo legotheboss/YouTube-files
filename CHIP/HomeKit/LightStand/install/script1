@@ -1,0 +1,5 @@
+sudo wget https://raw.githubusercontent.com/legotheboss/YouTube-files/master/CHIP/HomeKit/LightStand/fileDirectory/lightOFF
+sudo wget https://raw.githubusercontent.com/legotheboss/YouTube-files/master/CHIP/HomeKit/LightStand/fileDirectory/lightON
+sudo wget https://raw.githubusercontent.com/legotheboss/YouTube-files/master/CHIP/HomeKit/LightStand/fileDirectory/pin.py
+clear
+echo "Download1 complete"
