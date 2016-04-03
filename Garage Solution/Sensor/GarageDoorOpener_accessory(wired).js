@@ -108,13 +108,8 @@ exports.accessory = {
         var mainUpdate = wpi.digitalRead(12);
         var mainStatus = mainUpdate;
         var garageStatus = 1 - mainStatus;
-        if (value != garageStatus)
-        {
-            cmd.run('sudo python /home/pi/HAP-NodeJS/python/garage.py'); //executing script
+        cmd.run('sudo python /home/pi/HAP-NodeJS/python/garage.py'); //executing script
             console.log("Correct command");
-        } else {
-            console.log("False command");
-        }
       },
       onRead: function(callback) {
         console.log("Read:");
