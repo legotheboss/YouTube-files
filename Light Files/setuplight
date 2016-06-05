@@ -1,5 +1,6 @@
 cd /home/pi/HAP-NodeJS
-mkdir python
+sudo npm install node-cmd
+sudo mkdir python
 cd accessories/
 sudo rm -rf Light_accessory.js
 sudo wget https://goo.gl/Zgjpwx

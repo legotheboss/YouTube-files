@@ -1,4 +1,4 @@
-var PythonShell = require('python-shell');
+var cmd=require('node-cmd');
 // HomeKit types required
 var types = require("./types.js")
 var exports = module.exports = {};
@@ -10,9 +10,9 @@ exports.accessory = {
   username: "1A:2B:3C:4D:5E:FF",
   pincode: "031-45-154",
   services: [{
-    sType: types.ACCESSORY_INFORMATION_STYPE, 
+    sType: types.ACCESSORY_INFORMATION_STYPE,
     characteristics: [{
-    	cType: types.NAME_CTYPE, 
+    	cType: types.NAME_CTYPE,
     	onUpdate: null,
     	perms: ["pr"],
 		format: "string",
@@ -20,9 +20,9 @@ exports.accessory = {
 		supportEvents: false,
 		supportBonjour: false,
 		manfDescription: "Bla",
-		designedMaxLength: 255    
+		designedMaxLength: 255
     },{
-    	cType: types.MANUFACTURER_CTYPE, 
+    	cType: types.MANUFACTURER_CTYPE,
     	onUpdate: null,
     	perms: ["pr"],
 		format: "string",
@@ -30,7 +30,7 @@ exports.accessory = {
 		supportEvents: false,
 		supportBonjour: false,
 		manfDescription: "Bla",
-		designedMaxLength: 255    
+		designedMaxLength: 255
     },{
     	cType: types.MODEL_CTYPE,
     	onUpdate: null,
@@ -40,9 +40,9 @@ exports.accessory = {
 		supportEvents: false,
 		supportBonjour: false,
 		manfDescription: "Bla",
-		designedMaxLength: 255    
+		designedMaxLength: 255
     },{
-    	cType: types.SERIAL_NUMBER_CTYPE, 
+    	cType: types.SERIAL_NUMBER_CTYPE,
     	onUpdate: null,
     	perms: ["pr"],
 		format: "string",
@@ -50,9 +50,9 @@ exports.accessory = {
 		supportEvents: false,
 		supportBonjour: false,
 		manfDescription: "Bla",
-		designedMaxLength: 255    
+		designedMaxLength: 255
     },{
-    	cType: types.IDENTIFY_CTYPE, 
+    	cType: types.IDENTIFY_CTYPE,
     	onUpdate: null,
     	perms: ["pw"],
 		format: "bool",
@@ -60,10 +60,10 @@ exports.accessory = {
 		supportEvents: false,
 		supportBonjour: false,
 		manfDescription: "Identify Accessory",
-		designedMaxLength: 1    
+		designedMaxLength: 1
     }]
   },{
-    sType: types.LIGHTBULB_STYPE, 
+    sType: types.LIGHTBULB_STYPE,
     characteristics: [{
     	cType: types.NAME_CTYPE,
     	onUpdate: null,
@@ -73,21 +73,18 @@ exports.accessory = {
 		supportEvents: false,
 		supportBonjour: false,
 		manfDescription: "Bla",
-		designedMaxLength: 255   
+		designedMaxLength: 255
     },{
     	cType: types.POWER_STATE_CTYPE,
     	onUpdate: function(value)
-	{ 
+	{
     		console.log("Change:",value);
     		if (value) {
-			PythonShell.run('light1.py', function (err) {
- 				console.log('On Success');
-			});
+			    cmd.run('sudo python /home/pi/HAP-NodeJS/python/light1.py');
+          console.log("On Success!");
     		} else {
-    			PythonShell.run('light0.py', function (err) {
-    				console.log("Off Success");
-    				
-    			});
+          cmd.run('sudo python /home/pi/HAP-NodeJS/python/light0.py');
+          console.log("Off Success!");
     		}
     	},
     	perms: ["pw","pr","ev"],
@@ -96,7 +93,7 @@ exports.accessory = {
 		supportEvents: false,
 		supportBonjour: false,
 		manfDescription: "Turn On the Light",
-		designedMaxLength: 1    
+		designedMaxLength: 1
     },{
     	cType: types.HUE_CTYPE,
     	onUpdate: function(value) { console.log("Change:",value); execute("Test Accessory 1", "Light - Hue", value); },
