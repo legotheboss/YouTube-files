@@ -80,11 +80,11 @@ exports.accessory = {
 	{
     		console.log("Change:",value);
     		if (value) {
-			    cmd.run('sudo python /home/pi/HAP-NodeJS/python/light1.py');
-          console.log("On Success!");
+			cmd.run('sudo python /home/pi/HAP-NodeJS/python/light1.py');
+          		console.log("On Success!");
     		} else {
-          cmd.run('sudo python /home/pi/HAP-NodeJS/python/light0.py');
-          console.log("Off Success!");
+        		cmd.run('sudo python /home/pi/HAP-NodeJS/python/light0.py');
+        		console.log("Off Success!");
     		}
     	},
     	perms: ["pw","pr","ev"],
