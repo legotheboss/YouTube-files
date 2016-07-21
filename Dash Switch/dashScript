@@ -1,0 +1,9 @@
+sudo wget https://goo.gl/R1xpCu -O Dash_accessory.js
+sudo apt-get install libpcap-dev -y
+cd ..
+sudo npm install node-dash-button 
+cd accessories/
+sudo rm -rf MUBpTk
+cd ..
+clear 
+echo 'Installation Complete!'
