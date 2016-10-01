@@ -50,16 +50,10 @@ garage
     if (value == Characteristic.TargetDoorState.CLOSED) {
       GARAGE_DOOR.close();
       callback();
-      garage
-        .getService(Service.GarageDoorOpener)
-        .setCharacteristic(Characteristic.CurrentDoorState, Characteristic.CurrentDoorState.CLOSED);
     }
     else if (value == Characteristic.TargetDoorState.OPEN) {
       GARAGE_DOOR.open();
       callback();
-      garage
-        .getService(Service.GarageDoorOpener)
-        .setCharacteristic(Characteristic.CurrentDoorState, Characteristic.CurrentDoorState.OPEN);
     }
   });
 
