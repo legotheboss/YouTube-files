@@ -55,16 +55,16 @@ function Camera() {
   }
 
   this.createCameraControlService();
-  this._createStreamControllers(2, options); 
+  this._createStreamControllers(2, options);
 }
 
 Camera.prototype.handleSnapshotRequest = function(request, callback) {
   // Image request: {width: number, height: number}
   // Please override this and invoke callback(error, image buffer) when the snapshot is ready
   // console.log("running command 1");
-  cmd.run('sh /home/pi/HAP-NodeJS/task');
+  cmd.run('sudo sh /home/pi/HAP-NodeJS/task');
   var snapshot = fs.readFileSync(__dirname + '/res/snapshot.jpg');
-  callback(undefined, snapshot); 
+  callback(undefined, snapshot);
 }
 
 Camera.prototype.handleCloseConnection = function(connectionID) {
@@ -85,7 +85,7 @@ Camera.prototype.prepareStream = function(request, callback) {
 
   var response = {};
 
-  let 
+  let
 videoInfo = request["video"];
   if (videoInfo) {
     let targetPort = videoInfo["port"];
@@ -103,7 +103,7 @@ videoInfo = request["video"];
 
     sessionInfo["video_port"] = targetPort;
     sessionInfo["video_srtp"] = Buffer.concat([srtp_key, srtp_salt]);
-    sessionInfo["video_ssrc"] = 1; 
+    sessionInfo["video_ssrc"] = 1;
   }
 
   let audioInfo = request["audio"];
@@ -123,7 +123,7 @@ videoInfo = request["video"];
 
     sessionInfo["audio_port"] = targetPort;
     sessionInfo["audio_srtp"] = Buffer.concat([srtp_key, srtp_salt]);
-    sessionInfo["audio_ssrc"] = 1; 
+    sessionInfo["audio_ssrc"] = 1;
   }
 
   let currentAddress = ip.address();
