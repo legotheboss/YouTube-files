@@ -57,6 +57,7 @@ garage
       // now we want to set our garage "actual state" to be CLOSED so it shows as Closed in iOS apps
       garage
         .getService(Service.GarageDoorOpener)
+        .setCharacteristic(Characteristic.CurrentDoorState, Characteristic.CurrentDoorState.CLOSED);
     }
     else if (value == Characteristic.TargetDoorState.OPEN) {
       GARAGE_DOOR.open();
@@ -64,5 +65,23 @@ garage
       // now we want to set our garage "actual state" to be OPEN so it shows as Open in iOS apps
       garage
         .getService(Service.GarageDoorOpener)
+        .setCharacteristic(Characteristic.CurrentDoorState, Characteristic.CurrentDoorState.OPEN);
+    }
+  });
+
+garage
+  .getService(Service.GarageDoorOpener)
+  .getCharacteristic(Characteristic.CurrentDoorState)
+  .on('get', function(callback) {
+
+    var err = null;
+
+    if (GARAGE_DOOR.opened) {
+      console.log("Query: Is Garage Open? Yes.");
+      callback(err, Characteristic.CurrentDoorState.OPEN);
+    }
+    else {
+      console.log("Query: Is Garage Open? No.");
+      callback(err, Characteristic.CurrentDoorState.CLOSED);
     }
   });
