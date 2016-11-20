@@ -1,6 +1,6 @@
 cd /home/pi/HAP-NodeJS/lib/res
 wget http://localhost:8765/picture/1/current/ -O output.jpg
-file=output.txt
+file=output.jpg
 minimumsize=5000
 actualsize=$(wc -c <"$file")
 if [ $actualsize -ge $minimumsize ]; then
