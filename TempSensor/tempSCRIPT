@@ -6,5 +6,6 @@ sudo npm install ds18b20
 sudo modprobe w1-gpio && sudo modprobe w1_therm
 sudo echo 'w1-gpio' >> /etc/modules
 sudo echo "w1_therm" >> /etc/modules
+sudo echo "dtoverlay=w1-gpio" >> /boot/config.txt
 clear
 echo 'All Done!'
