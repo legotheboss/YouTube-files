@@ -11,7 +11,7 @@ var MOTION_SENSOR = {
 
   getStatus: function() {
     wpi.setup('phys');
-    sensorReading = wpi.digitalRead(12);
+    sensorReading = wpi.digitalRead(38);
     sensorReading = Number(sensorReading);
     if (sensorReading == '1'){
       MOTION_SENSOR.motionDetected = true;
@@ -59,7 +59,7 @@ motionSensor
 
 setInterval(function() {
   wpi.setup('phys');
-  sensorReading = wpi.digitalRead(12);
+  sensorReading = wpi.digitalRead(38);
   sensorReading = Number(sensorReading);
   if (sensorReading == 1){
     newStatus = true;
