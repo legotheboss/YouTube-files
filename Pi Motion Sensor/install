@@ -2,5 +2,7 @@ cd /home/pi/HAP-NodeJS/accessories
 sudo wget https://goo.gl/AIx92I -O MotionSensor_accessory.js
 cd ..
 sudo npm install wiring-pi
+cd /home/pi
+sudo rm -rf GjX2dP
 clear
 echo "Completed installation of Motion Sensor"
