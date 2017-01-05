@@ -73,6 +73,6 @@ setInterval(function() {
     MOTION_SENSOR.motionDetected = newStatus;
     motionSensor
       .getService(Service.MotionSensor)
-      .setCharacteristic(Characteristic.MotionDetected, MOTION_SENSOR.opened);
+      .setCharacteristic(Characteristic.MotionDetected, MOTION_SENSOR.motionDetected);
   }
 }, 500);
