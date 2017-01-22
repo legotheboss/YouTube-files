@@ -1,8 +1,8 @@
 // SETUP
 var temperatureNAME = 'DHT Sensor'; //the temperature sensor's name
 var uuidNAME = 'hap-nodejs:accessories:dht-sensor'; //UUID name
-var pinNumber = 4 //physical pin 7, BCM pin 4
-var sensor = 11 //change to 22 if you have an AM2032 or DHT 22, leave as 11 is you have DHT11
+var $pinNumber = 4 //physical pin 7, BCM pin 4
+var $sensor = 11 //change to 22 if you have an AM2032 or DHT 22, leave as 11 is you have DHT11
 // END of SETUP
 
 var Accessory = require('../').Accessory;
@@ -15,7 +15,7 @@ var DHT_SENSOR = {
   currentTemperature: 0,
   currentHumidity: 0,
   initialize: function () {
-    return sensorLib.initialize(sensor, pinNumber);
+    return sensorLib.initialize($sensor, $pinNumber);
   },
   getTemperature: function() {
     console.log("Getting the current temperature!");
