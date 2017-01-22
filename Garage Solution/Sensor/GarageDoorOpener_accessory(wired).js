@@ -15,11 +15,13 @@ var newStatus;
 var GARAGE_DOOR = {
   opened: false,
   open: function() {
+    if(!GARAGE_DOOR.opened)
     console.log("Opening the Garage!");
     cmd.run('sudo python /home/pi/HAP-NodeJS/python/garage.py');
     GARAGE_DOOR.opened = true;
   },
   close: function() {
+    if(GARAGE_DOOR.opened)
     console.log("Closing the Garage!");
     cmd.run('sudo python /home/pi/HAP-NodeJS/python/garage.py');
     GARAGE_DOOR.opened = false;
@@ -59,6 +61,7 @@ garage
 
 garage
   .getService(Service.GarageDoorOpener)
+  .setCharacteristic(Characteristic.ObstructionDetected, Characteristic.ObstructionDetected.NO)
   .getCharacteristic(Characteristic.CurrentDoorState)
   .on('get', function(callback) {
 
@@ -100,5 +103,9 @@ setInterval(function() {
     garage
       .getService(Service.GarageDoorOpener)
       .setCharacteristic(Characteristic.CurrentDoorState, GARAGE_DOOR.opened);
+
+      garage
+        .getService(Service.GarageDoorOpener)
+        .setCharacteristic(Characteristic.TargetDoorState, GARAGE_DOOR.opened);
   }
 }, 1000);
