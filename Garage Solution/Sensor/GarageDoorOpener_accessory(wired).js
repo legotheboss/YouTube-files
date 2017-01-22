@@ -61,6 +61,7 @@ garage
 
 garage
   .getService(Service.GarageDoorOpener)
+  .setCharacteristic(Characteristic.CurrentDoorState, Characteristic.CurrentDoorState.CLOSED)
   .setCharacteristic(Characteristic.ObstructionDetected, Characteristic.ObstructionDetected.NO)
   .getCharacteristic(Characteristic.CurrentDoorState)
   .on('get', function(callback) {
