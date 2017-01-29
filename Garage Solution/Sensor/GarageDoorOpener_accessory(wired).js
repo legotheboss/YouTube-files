@@ -11,6 +11,7 @@ var cmd=require('node-cmd');
 var wpi = require('wiring-pi');
 var sensorReading;
 var newStatus;
+var falseAlert = false;
 
 var GARAGE_DOOR = {
   opened: false,
@@ -50,12 +51,26 @@ garage
   .on('set', function(value, callback) {
 
     if (value == Characteristic.TargetDoorState.CLOSED) {
-      GARAGE_DOOR.close();
-      callback();
+      if(falseAlert)
+      {
+        falseAlert=false;
+        callback();
+      }
+      else{
+        GARAGE_DOOR.close();
+        callback();
+      }
     }
     else if (value == Characteristic.TargetDoorState.OPEN) {
-      GARAGE_DOOR.open();
-      callback();
+      if(falseAlert)
+      {
+        falseAlert=false;
+        callback();
+      }
+      else{
+        GARAGE_DOOR.open();
+        callback();
+      }
     }
   });
 
@@ -100,6 +115,7 @@ setInterval(function() {
   }
 
   if(newStatus != GARAGE_DOOR.opened){
+    falseAlert = true;
     GARAGE_DOOR.opened = newStatus;
     garage
       .getService(Service.GarageDoorOpener)
