@@ -119,7 +119,7 @@ setInterval(function() {
     GARAGE_DOOR.opened = newStatus;
     garage
       .getService(Service.GarageDoorOpener)
-      .setCharacteristic(Characteristic.CurrentDoorState, GARAGE_DOOR.opened);
+      .setCharacteristic(Characteristic.CurrentDoorState, !GARAGE_DOOR.opened);
 
       garage
         .getService(Service.GarageDoorOpener)
