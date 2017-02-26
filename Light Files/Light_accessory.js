@@ -1,138 +1,67 @@
-var cmd=require('node-cmd');
-// HomeKit types required
-var types = require("./types.js")
-var exports = module.exports = {};
+var Accessory = require('../').Accessory;
+var Service = require('../').Service;
+var Characteristic = require('../').Characteristic;
+var uuid = require('../').uuid;
 
-var execute = function(accessory,characteristic,value){ console.log("executed accessory: " + accessory + ", and characteristic: " + characteristic + ", with value: " +  value + "."); }
-
-exports.accessory = {
-  displayName: "Light 1",
-  username: "1A:2B:3C:4D:5E:FF",
+var LightController = {
+  name: "Raspberry Light", //name of accessory
   pincode: "031-45-154",
-  services: [{
-    sType: types.ACCESSORY_INFORMATION_STYPE,
-    characteristics: [{
-    	cType: types.NAME_CTYPE,
-    	onUpdate: null,
-    	perms: ["pr"],
-		format: "string",
-		initialValue: "Light 1",
-		supportEvents: false,
-		supportBonjour: false,
-		manfDescription: "Bla",
-		designedMaxLength: 255
-    },{
-    	cType: types.MANUFACTURER_CTYPE,
-    	onUpdate: null,
-    	perms: ["pr"],
-		format: "string",
-		initialValue: "Oltica",
-		supportEvents: false,
-		supportBonjour: false,
-		manfDescription: "Bla",
-		designedMaxLength: 255
-    },{
-    	cType: types.MODEL_CTYPE,
-    	onUpdate: null,
-    	perms: ["pr"],
-		format: "string",
-		initialValue: "Rev-1",
-		supportEvents: false,
-		supportBonjour: false,
-		manfDescription: "Bla",
-		designedMaxLength: 255
-    },{
-    	cType: types.SERIAL_NUMBER_CTYPE,
-    	onUpdate: null,
-    	perms: ["pr"],
-		format: "string",
-		initialValue: "A1S2NASF88EW",
-		supportEvents: false,
-		supportBonjour: false,
-		manfDescription: "Bla",
-		designedMaxLength: 255
-    },{
-    	cType: types.IDENTIFY_CTYPE,
-    	onUpdate: null,
-    	perms: ["pw"],
-		format: "bool",
-		initialValue: false,
-		supportEvents: false,
-		supportBonjour: false,
-		manfDescription: "Identify Accessory",
-		designedMaxLength: 1
-    }]
-  },{
-    sType: types.LIGHTBULB_STYPE,
-    characteristics: [{
-    	cType: types.NAME_CTYPE,
-    	onUpdate: null,
-    	perms: ["pr"],
-		format: "string",
-		initialValue: "Light 1 Light Service",
-		supportEvents: false,
-		supportBonjour: false,
-		manfDescription: "Bla",
-		designedMaxLength: 255
-    },{
-    	cType: types.POWER_STATE_CTYPE,
-    	onUpdate: function(value)
-	{
-    		console.log("Change:",value);
-    		if (value) {
-			cmd.run('sudo python /home/pi/HAP-NodeJS/python/light1.py');
-          		console.log("On Success!");
-    		} else {
-        		cmd.run('sudo python /home/pi/HAP-NodeJS/python/light0.py');
-        		console.log("Off Success!");
-    		}
-    	},
-    	perms: ["pw","pr","ev"],
-		format: "bool",
-		initialValue: false,
-		supportEvents: false,
-		supportBonjour: false,
-		manfDescription: "Turn On the Light",
-		designedMaxLength: 1
-    },{
-    	cType: types.HUE_CTYPE,
-    	onUpdate: function(value) { console.log("Change:",value); execute("Test Accessory 1", "Light - Hue", value); },
-    	perms: ["pw","pr","ev"],
-		format: "int",
-		initialValue: 0,
-		supportEvents: false,
-		supportBonjour: false,
-		manfDescription: "Doesn’t actually adjust Hue of Light",
-		designedMinValue: 0,
-		designedMaxValue: 360,
-		designedMinStep: 1,
-		unit: "arcdegrees"
-    },{
-    	cType: types.BRIGHTNESS_CTYPE,
-    	onUpdate: function(value) { console.log("Change:",value); execute("Test Accessory 1", "Light - Brightness", value); },
-    	perms: ["pw","pr","ev"],
-		format: "int",
-		initialValue: 0,
-		supportEvents: false,
-		supportBonjour: false,
-		manfDescription: "Doesn’t actually adjust Brightness of Light",
-		designedMinValue: 0,
-		designedMaxValue: 100,
-		designedMinStep: 1,
-		unit: "%"
-    },{
-    	cType: types.SATURATION_CTYPE,
-    	onUpdate: function(value) { console.log("Change:",value); execute("Test Accessory 1", "Light - Saturation", value); },
-    	perms: ["pw","pr","ev"],
-		format: "int",
-		initialValue: 0,
-		supportEvents: false,
-		supportBonjour: false,
-		manfDescription: "Doesn’t actually adjust Saturation of Light",
-		designedMinValue: 0,
-		designedMaxValue: 100,
-		designedMinStep: 1,
-		unit: "%"
-    }]
-  }]
+  username: "FA:3C:ED:5A:1A:1A", // MAC like address used by HomeKit to differentiate accessories.
+  manufacturer: "HAP-NodeJS", //manufacturer (optional)
+  model: "v1.0", //model (optional)
+  serialNumber: "A12S345KGB", //serial number (optional)
+
+  power: false, //curent power status
+
+  outputLogs: false, //output logs
+
+  setPower: function(status) { //set power of accessory
+    if(this.outputLogs) console.log("Turning the '%s' %s", this.name, status ? "on" : "off");
+    this.power = status;
+    if(status) cmd.run('sudo python /home/pi/HAP-NodeJS/python/light1.py');
+    else cmd.run('sudo python /home/pi/HAP-NodeJS/python/light0.py');
+  },
+
+  getPower: function() { //get power of accessory
+    if(this.outputLogs) console.log("'%s' is %s.", this.name, this.power ? "on" : "off");
+    return this.power ? true : false;
+  },
+
+  identify: function() { //identify the accessory
+    if(this.outputLogs) console.log("Identify the '%s'", this.name);
+  }
 }
+
+// Generate a consistent UUID for our light Accessory that will remain the same even when
+// restarting our server. We use the `uuid.generate` helper function to create a deterministic
+// UUID based on an arbitrary "namespace" and the word "light".
+var lightUUID = uuid.generate('hap-nodejs:accessories:light' + LightController.name);
+
+// This is the Accessory that we'll return to HAP-NodeJS that represents our light.
+var lightAccessory = exports.accessory = new Accessory(LightController.name, lightUUID);
+
+// Add properties for publishing (in case we're using Core.js and not BridgedCore.js)
+lightAccessory.username = LightController.username;
+lightAccessory.pincode = LightController.pincode;
+
+lightAccessory
+  .getService(Service.AccessoryInformation)
+    .setCharacteristic(Characteristic.Manufacturer, LightController.manufacturer)
+    .setCharacteristic(Characteristic.Model, LightController.model)
+    .setCharacteristic(Characteristic.SerialNumber, LightController.serialNumber);
+
+lightAccessory.on('identify', function(paired, callback) {
+  LightController.identify();
+  callback();
+});
+
+lightAccessory
+  .addService(Service.Lightbulb, LightController.name)
+  .getCharacteristic(Characteristic.On)
+  .on('set', function(value, callback) {
+    LightController.setPower(value);
+    callback();
+  })
+  .on('get', function(callback) {
+    callback(null, LightController.getPower());
+  });

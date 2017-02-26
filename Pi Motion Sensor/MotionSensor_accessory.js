@@ -3,16 +3,14 @@ var Service = require('../').Service;
 var Characteristic = require('../').Characteristic;
 var uuid = require('../').uuid;
 var wpi = require('wiring-pi');
-var sensorReading;
+wpi.setup('phys');
+var sensorReading = Number(wpi.digitalRead(15));
 var newStatus;
 
 var MOTION_SENSOR = {
   motionDetected: false,
 
   getStatus: function() {
-    wpi.setup('phys');
-    sensorReading = wpi.digitalRead(15);
-    sensorReading = Number(sensorReading);
     if (sensorReading == '1'){
       MOTION_SENSOR.motionDetected = true;
     }
@@ -58,9 +56,6 @@ motionSensor
 });
 
 setInterval(function() {
-  wpi.setup('phys');
-  sensorReading = wpi.digitalRead(15);
-  sensorReading = Number(sensorReading);
   if (sensorReading == 1){
     newStatus = true;
   }
