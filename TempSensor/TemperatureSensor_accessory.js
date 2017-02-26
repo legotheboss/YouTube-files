@@ -12,8 +12,6 @@ var TEMP_SENSOR = {
   currentTemperature: ds18b20.temperatureSync(dsSensor),
   getTemperature: function() {
     console.log("Getting the current temperature!");
-    var tempSEN = ds18b20.temperatureSync(dsSensor);
-    currentTemperature = tempSEN;
     return TEMP_SENSOR.currentTemperature;
   },
 }
@@ -41,15 +39,11 @@ sensor
     callback(null, TEMP_SENSOR.getTemperature());
   });
 
-// gets our temperature reading every 10 seconds
+// gets our temperature reading every 5 seconds
 setInterval(function() {
-
-  var tempSEN = ds18b20.temperatureSync(dsSensor);
-  TEMP_SENSOR.currentTemperature = tempSEN;
-
   // update the characteristic value so interested iOS devices can get notified
   sensor
     .getService(Service.TemperatureSensor)
     .setCharacteristic(Characteristic.CurrentTemperature, TEMP_SENSOR.currentTemperature);
 
-}, 10000);
+}, 5000);
