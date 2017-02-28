@@ -1,3 +1,4 @@
+var cmd = require('node-cmd');
 var Accessory = require('../').Accessory;
 var Service = require('../').Service;
 var Characteristic = require('../').Characteristic;
