@@ -3,13 +3,13 @@ var Service = require('../').Service;
 var Characteristic = require('../').Characteristic;
 var uuid = require('../').uuid;
 var mqtt = require('mqtt');
+var MQTT_IP = 'localhost' //change this if your MQTT broker is different
 var mqttMSG = false;
 
 
 var name = "Sonoff Outlet"; //accessory name
 var sonoffUUID = "hap-nodejs:accessories:sonoffstand"; //change this to your preferences
 var sonoffUsername = "1A:2B:3C:4D:5E:FF";
-var MQTT_IP = '1.1.1.1'//enter your IP address here
 var MQTT_NAME = 'sonoff' //MQTT topic that was set on the Sonoff firmware
 
 
@@ -20,7 +20,7 @@ var options = {
 //  password: 'raspberry', enable only if you have authentication on your MQTT broker
   clientId: MQTT_NAME+'HAP'
 };
-var sonoffTopic = '/cmnd/'+MQTT_NAME+'/power';
+var sonoffTopic = 'cmnd/'+MQTT_NAME+'/power';
 var client = mqtt.connect(options);
 
 client.on('message', function(topic, message) {
@@ -39,7 +39,7 @@ client.on('message', function(topic, message) {
 });
 
 client.on('connect', function () {
-  client.subscribe('/stat/'+MQTT_NAME+'/POWER')
+  client.subscribe('stat/'+MQTT_NAME+'/POWER')
 });
 
 var sonoffObject = {

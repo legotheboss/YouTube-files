@@ -1,0 +1,35 @@
+cd /home/pi/HAP-NodeJS
+sudo wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+sudo apt-key add mosquitto-repo.gpg.key
+cd /etc/apt/sources.list.d/
+sudo wget http://repo.mosquitto.org/debian/mosquitto-jessie.list
+sudo apt-get update
+sudo apt-get install mosquitto mosquitto-clients -y
+sudo /etc/init.d/mosquitto stop
+
+cat <<EOT >> mosquitto.conf
+# Config file for mosquitto
+#
+# See mosquitto.conf(5) for more information.
+
+user mosquitto
+max_queued_messages 200
+message_size_limit 0
+allow_zero_length_clientid true
+allow_duplicate_messages false
+
+listener 1883
+autosave_interval 900
+autosave_on_changes false
+persistence true
+persistence_file mosquitto.db
+allow_anonymous true
+EOT
+
+clear
+sudo /etc/init.d/mosquitto start
+cd /home/pi/HAP-NodeJS
+sudo npm install mqtt --save
+cd accessories/
+sudo wget https://goo.gl/EI1rr3 -O SonoffMQTT_accessory.js
+clear
