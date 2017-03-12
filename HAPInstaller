@@ -8,5 +8,3 @@ sudo npm install -g node-gyp
 sudo git clone https://github.com/KhaosT/HAP-NodeJS.git
 cd HAP-NodeJS/
 sudo npm install
-clear
-echo "Installation Complete"
