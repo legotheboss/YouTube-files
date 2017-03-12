@@ -1,7 +1,7 @@
-import RPi.GPIO as GPIO
-from time import sleep
+from RPi import GPIO
+import time
+GPIO.setwarnings(False)
 alpha = 16
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(alpha, GPIO.OUT)
-GPIO.output(alpha, 0)
-GPIO.cleanup()
+GPIO.output(alpha, GPIO.LOW)
