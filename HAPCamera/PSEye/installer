@@ -10,19 +10,11 @@ echo "Starting HomeKit camera Installation"
 sleep 1
 clear
 cd /home/pi/HAP-NodeJS
-nodeV="$(node -v)"
-if [ "$nodev" != "v4.4.4" ]; then
-	clear
-	echo "Updating Node to Latest Version"
-	sudo npm install n -g
-	sudo n 4.4.4
-	sudo npm install forever -g
-fi
 clear
 echo "Ensuring HAP-NodeJS has all up-to-date prerequisites"
 sleep 1
 clear
-sudo npm install 
+sudo npm install
 sudo npm install node-cmd
 clear
 echo "Installing camera-specific files"
@@ -32,10 +24,9 @@ sudo wget http://goo.gl/F2EB5M -O task
 sudo chmod +x task
 sudo systemctl stop motioneye
 sudo wget http://goo.gl/B1w9DR -O ffmpeg.deb
-sudo dpkg -i ffmpeg.deb 
+sudo dpkg -i ffmpeg.deb
 sudo rm -rf ffmpeg.deb
 sudo systemctl start motioneye
 cd lib/
 sudo mv Camera.js OriginalCamera.js.bak
 sudo wget http://goo.gl/Maq3o7 -O Camera.js
-

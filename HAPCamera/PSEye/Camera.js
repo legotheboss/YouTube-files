@@ -61,11 +61,21 @@ function Camera() {
 Camera.prototype.handleSnapshotRequest = function(request, callback) {
   // Image request: {width: number, height: number}
   // Please override this and invoke callback(error, image buffer) when the snapshot is ready
-  // console.log("running command 1");
-  cmd.run('sudo sh /home/pi/HAP-NodeJS/task');
-  var snapshot = fs.readFileSync(__dirname + '/res/snapshot.jpg');
-  callback(undefined, snapshot);
+
+  let resolution = request.width + 'x' + request.height;
+  var ffmpegImageSource = "-i http://localhost:8765/picture/1/current/"
+  var imageSource = ffmpegImageSource !== undefined ? ffmpegImageSource : this.ffmpegSource;
+  let ffmpeg = spawn('ffmpeg', (imageSource + ' -t 1 -s '+ '1280x720' + ' -f image2 -').split(' '), {env: process.env});
+  var imageBuffer = Buffer(0);
+
+  ffmpeg.stdout.on('data', function(data) {
+    imageBuffer = Buffer.concat([imageBuffer, data]);
+  });
+  ffmpeg.on('close', function(code) {
+    callback(undefined, imageBuffer);
+  });
 }
+
 
 Camera.prototype.handleCloseConnection = function(connectionID) {
   this.streamControllers.forEach(function(controller) {
