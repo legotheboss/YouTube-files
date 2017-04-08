@@ -1,7 +1,8 @@
 from RPi import GPIO
 import time
+import sys
 GPIO.setwarnings(False)
-alpha = 16
+relayPin = int(sys.argv[1])
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(alpha, GPIO.OUT)
-GPIO.output(alpha, GPIO.HIGH)
+GPIO.setup(relayPin, GPIO.OUT)
+GPIO.output(relayPin, GPIO.HIGH)

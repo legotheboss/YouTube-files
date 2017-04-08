@@ -4,6 +4,8 @@ var Service = require('../').Service;
 var Characteristic = require('../').Characteristic;
 var uuid = require('../').uuid;
 
+var relayPin = 16; //Physical Pin Number for the relay you wish to be able to use. Change as you desire...
+
 var LightController = {
   name: "Raspberry Light", //name of accessory
   pincode: "031-45-154",
@@ -19,8 +21,8 @@ var LightController = {
   setPower: function(status) { //set power of accessory
     if(this.outputLogs) console.log("Turning the '%s' %s", this.name, status ? "on" : "off");
     this.power = status;
-    if(status) cmd.run('sudo python /home/pi/HAP-NodeJS/python/light1.py');
-    else cmd.run('sudo python /home/pi/HAP-NodeJS/python/light0.py');
+    if(status) cmd.run('sudo python /home/pi/HAP-NodeJS/python/light1.py ' + relayPin);
+    else cmd.run('sudo python /home/pi/HAP-NodeJS/python/light0.py ' + relayPin);
   },
 
   getPower: function() { //get power of accessory
