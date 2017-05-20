@@ -8,7 +8,7 @@ var Service = require('../').Service;
 var Characteristic = require('../').Characteristic;
 var uuid = require('../').uuid;
 var cmd=require('node-cmd');
-var wpi = require('wiring-pi');
+var wpi = require('wiringpi-node');
 var sensorReading;
 var newStatus;
 var falseAlert = false;
