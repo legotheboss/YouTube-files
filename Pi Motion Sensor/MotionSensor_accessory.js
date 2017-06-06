@@ -2,7 +2,7 @@ var Accessory = require('../').Accessory;
 var Service = require('../').Service;
 var Characteristic = require('../').Characteristic;
 var uuid = require('../').uuid;
-var wpi = require('wiring-pi');
+var wpi = require('wiringpi-node');
 wpi.setup('phys');
 var sensorReading = Number(wpi.digitalRead(15));
 var newStatus;
