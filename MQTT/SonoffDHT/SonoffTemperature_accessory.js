@@ -72,4 +72,4 @@ setInterval(function() {
     .getService(Service.TemperatureSensor)
     .setCharacteristic(Characteristic.CurrentTemperature, sonoffTemperature.currentTemperature);
 
-}, 5000);
+}, 60000);

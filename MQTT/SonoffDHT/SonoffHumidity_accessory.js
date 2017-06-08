@@ -72,4 +72,4 @@ setInterval(function() {
     .getService(Service.HumiditySensor)
     .setCharacteristic(Characteristic.CurrentRelativeHumidity, sonoffHumidity.CurrentRelativeHumidity);
 
-}, 5000);
+}, 60000);
