@@ -3,14 +3,14 @@ var Service = require('../').Service;
 var Characteristic = require('../').Characteristic;
 var uuid = require('../').uuid;
 var mqtt = require('mqtt');
-var mqttMSG = 20.0;
+var MQTT_IP = 'localhost' //change this if your MQTT broker is different
+var mqttMSG = false;
 
 
 var name = "Sonoff Temperature Sensor"; //accessory name
 var sonoffUUID = "hap-nodejs:accessories:sonoff:temperature:" + name; //change this to your preferences
-var sonoffUsername = "1A:2E:3E:4A:5E:FA";
-var sonoffTopic = 'sonoff' //MQTT topic that was set on the Sonoff firmware
-var MQTT_IP = 'localhost' //change this if your MQTT broker is different
+var sonoffUsername = "1A:2B:3C:4D:5E:FF";
+var MQTT_NAME = 'sonoff' //MQTT topic that was set on the Sonoff firmware
 
 
 var options = {
@@ -18,16 +18,16 @@ var options = {
   host: MQTT_IP,
 //  username: 'pi', enable only if you have authentication on your MQTT broker
 //  password: 'raspberry', enable only if you have authentication on your MQTT broker
-  clientId: sonoffTopic+'HAP'
+  clientId: MQTT_NAME+'HAP'
 };
-var sonoffTopic = 'cmnd/'+sonoffTopic+'/status';
+var sonoffTopic = 'cmnd/'+MQTT_NAME+'/status';
 var client = mqtt.connect(options);
 
 client.on('connect', function () {
-  client.subscribe('stat/'+sonoffTopic+'/STATUS10')
+  client.subscribe('stat/'+MQTT_NAME+'/STATUS10')
 });
 
-var sonoffTemperature = {
+var sonoffObject = {
   currentTemperature: 30,
   getReadings: function() {
     client.publish(sonoffTopic, '10');
@@ -44,7 +44,7 @@ sonoffTemp.pincode = "031-45-154";
 
 // listen for the "identify" event for this Accessory
 sonoffTemp.on('identify', function(paired, callback) {
-  sonoffTemperature.identify();
+  sonoffObject.identify();
   callback();
 });
 
@@ -53,7 +53,7 @@ sonoffTemp
   .getCharacteristic(Characteristic.CurrentTemperature)
   .on('get', function(callback) {
     // return our current value
-    callback(null, sonoffTemperature.currentTemperature);
+    callback(null, sonoffObject.currentTemperature);
   });
 
   client.on('message', function(topic, message) {
@@ -61,15 +61,15 @@ sonoffTemp
     message = message.toString();
     mqttMSG = JSON.parse(message);
   //  console.log(mqttMSG.StatusSNS.DHT22.Temperature);
-    sonoffTemperature.currentTemperature = mqttMSG.StatusSNS.DHT22.Temperature;
+    sonoffObject.currentTemperature = mqttMSG.StatusSNS.DHT22.Temperature;
   });
 
 setInterval(function() {
 
-  sonoffTemperature.getReadings();
+  sonoffObject.getReadings();
 
   sonoffTemp
     .getService(Service.TemperatureSensor)
-    .setCharacteristic(Characteristic.CurrentTemperature, sonoffTemperature.currentTemperature);
+    .setCharacteristic(Characteristic.CurrentTemperature, sonoffObject.currentTemperature);
 
 }, 60000);

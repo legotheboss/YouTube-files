@@ -3,14 +3,14 @@ var Service = require('../').Service;
 var Characteristic = require('../').Characteristic;
 var uuid = require('../').uuid;
 var mqtt = require('mqtt');
-var mqttMSG = 50.0;
+var MQTT_IP = 'localhost' //change this if your MQTT broker is different
+var mqttMSG = false;
 
 
 var name = "Sonoff Humidity Sensor"; //accessory name
 var sonoffUUID = "hap-nodejs:accessories:sonoff:Humidity:" + name; //change this to your preferences
-var sonoffUsername = "1C:2D:3A:43:6E:DF";
-var sonoffTopic = 'sonoff' //MQTT topic that was set on the Sonoff firmware
-var MQTT_IP = 'localhost' //change this if your MQTT broker is different
+var sonoffUsername = "1A:2B:3C:4D:5E:FF";
+var MQTT_NAME = 'sonoff' //MQTT topic that was set on the Sonoff firmware
 
 
 var options = {
@@ -18,16 +18,16 @@ var options = {
   host: MQTT_IP,
 //  username: 'pi', enable only if you have authentication on your MQTT broker
 //  password: 'raspberry', enable only if you have authentication on your MQTT broker
-  clientId: sonoffTopic+'HAP'
+  clientId: MQTT_NAME+'HAP'
 };
-var sonoffTopic = 'cmnd/'+sonoffTopic+'/status';
+var sonoffTopic = 'cmnd/'+MQTT_NAME+'/status';
 var client = mqtt.connect(options);
 
 client.on('connect', function () {
-  client.subscribe('stat/'+sonoffTopic+'/STATUS10')
+  client.subscribe('stat/'+MQTT_NAME+'/STATUS10')
 });
 
-var sonoffHumidity = {
+var sonoffObject = {
   CurrentRelativeHumidity: 30,
   getReadings: function() {
     client.publish(sonoffTopic, '10');
@@ -44,7 +44,7 @@ sonoffHumi.pincode = "031-45-154";
 
 // listen for the "identify" event for this Accessory
 sonoffHumi.on('identify', function(paired, callback) {
-  sonoffHumidity.identify();
+  sonoffObject.identify();
   callback();
 });
 
@@ -53,7 +53,7 @@ sonoffHumi
   .getCharacteristic(Characteristic.CurrentRelativeHumidity)
   .on('get', function(callback) {
     // return our current value
-    callback(null, sonoffHumidity.CurrentRelativeHumidity);
+    callback(null, sonoffObject.CurrentRelativeHumidity);
   });
 
   client.on('message', function(topic, message) {
@@ -61,15 +61,15 @@ sonoffHumi
     message = message.toString();
     mqttMSG = JSON.parse(message);
   //  console.log(mqttMSG.StatusSNS.DHT22.Humidity);
-    sonoffHumidity.CurrentRelativeHumidity = mqttMSG.StatusSNS.DHT22.Humidity;
+    sonoffObject.CurrentRelativeHumidity = mqttMSG.StatusSNS.DHT22.Humidity;
   });
 
 setInterval(function() {
 
-  sonoffHumidity.getReadings();
+  sonoffObject.getReadings();
 
   sonoffHumi
     .getService(Service.HumiditySensor)
-    .setCharacteristic(Characteristic.CurrentRelativeHumidity, sonoffHumidity.CurrentRelativeHumidity);
+    .setCharacteristic(Characteristic.CurrentRelativeHumidity, sonoffObject.CurrentRelativeHumidity);
 
 }, 60000);
