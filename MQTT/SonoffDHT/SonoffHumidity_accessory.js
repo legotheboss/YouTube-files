@@ -3,14 +3,14 @@ var Service = require('../').Service;
 var Characteristic = require('../').Characteristic;
 var uuid = require('../').uuid;
 var mqtt = require('mqtt');
-var MQTT_IP = 'localhost' //change this if your MQTT broker is different
-var mqttMSG = false;
+var mqttMSG = 0;
 
 
 var name = "Sonoff Humidity Sensor"; //accessory name
 var sonoffUUID = "hap-nodejs:accessories:sonoff:Humidity:" + name; //change this to your preferences
-var sonoffUsername = "1A:2B:3C:4D:5E:FF";
+var sonoffUsername = "1A:2C:3A:4E:5E:FF";
 var MQTT_NAME = 'sonoff' //MQTT topic that was set on the Sonoff firmware
+var MQTT_IP = 'localhost' //change this if your MQTT broker is different
 
 
 var options = {
@@ -28,7 +28,6 @@ client.on('connect', function () {
 });
 
 var sonoffObject = {
-  CurrentRelativeHumidity: 30,
   getReadings: function() {
     client.publish(sonoffTopic, '10');
   },
