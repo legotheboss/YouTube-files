@@ -28,6 +28,7 @@ client.on('connect', function () {
 });
 
 var sonoffObject = {
+  CurrentRelativeHumidity: 99,
   getReadings: function() {
     client.publish(sonoffTopic, '10');
   },
