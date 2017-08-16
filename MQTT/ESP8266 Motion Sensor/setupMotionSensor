@@ -1,0 +1,18 @@
+cd /home/pi/HAP-NodeJS
+if type mosquitto>/dev/null; then
+      echo "Mosquitto already installed, continuing with install"
+   else
+      echo "Mosquitto not detected, installing Mosquitto now"
+      sudo wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+      sudo apt-key add mosquitto-repo.gpg.key
+      cd /etc/apt/sources.list.d/
+      sudo wget http://repo.mosquitto.org/debian/mosquitto-jessie.list
+      sudo apt-get update
+      sudo apt-get install mosquitto mosquitto-clients -y
+fi
+cd /home/pi/HAP-NodeJS
+sudo npm install mqtt --save
+cd accessories/
+sudo wget https://goo.gl/xRAhwp -O MQTTMotionSensor_accessory.js
+clear
+echo "Process Complete!"
