@@ -35,12 +35,12 @@ char* mqtt_maintopic = mqtt_topic;
 void setup() {
   strcat(mqtt_maintopic, mqtt_subtopic);
   pinMode(pirPin, INPUT);
-  //Serial.begin(74880);
+  Serial.begin(74880);
 }
 
 void loop() {
   if (!lowPower && WiFi.status() != WL_CONNECTED) startWiFi();
-  //Serial.println(digitalRead(pirPin));
+  Serial.println(digitalRead(pirPin));
 
   if ((digitalRead(pirPin)) == 0) delay(250);
 
@@ -49,18 +49,18 @@ void loop() {
     MQTT.loop();
     if (!MQTT.connected()) reconnect();
     MQTT.publish(mqtt_topic, "TRUE");
-    //Serial.println("Message Published: TRUE");
+    Serial.println("Message Published: TRUE");
     while (digitalRead(pirPin) == 1) {
       if (!MQTT.connected()) reconnect();
       MQTT.publish(mqtt_topic, "TRUE");
-      //Serial.println("Message Published: TRUE");
+      Serial.println("Message Published: TRUE");
       delay(500);
     }
     pir = 0;
     if (!MQTT.connected()) reconnect();
     if (lowPower) delay(delayTime);
     MQTT.publish(mqtt_topic, "FALSE");
-    //Serial.println("Message Published: FALSE");
+    Serial.println("Message Published: FALSE");
     MQTT.loop();
     delay(500);
   }
@@ -73,24 +73,24 @@ void loop() {
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
-  //Serial.print("Message arrived [");
-  //Serial.print(topic);
-  //Serial.print("] ");
+  Serial.print("Message arrived [");
+  Serial.print(topic);
+  Serial.print("] ");
   for (int i = 0; i < length; i++) {
-    //Serial.print((char)payload[i]);
+    Serial.print((char)payload[i]);
   }
-  //Serial.println();
+  Serial.println();
 }
 
 void reconnect() {
   while (!MQTT.connected()) {
-    //Serial.print("Attempting MQTT connection...");
+    Serial.print("Attempting MQTT connection...");
     if (MQTT.connect(mqtt_name)) {
-      //Serial.println("connected");
+      Serial.println("connected");
     } else {
-      //Serial.print("failed, rc=");
-      //Serial.print(MQTT.state());
-      //Serial.println(" try again in 5 seconds");
+      Serial.print("failed, rc=");
+      Serial.print(MQTT.state());
+      Serial.println(" try again in 5 seconds");
       for (int i = 0; i < 5000; i++) {
         delay(1);
       }
@@ -102,14 +102,14 @@ void startWiFi() {
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
   while (WiFi.waitForConnectResult() != WL_CONNECTED) {
-    //Serial.println("Connection Failed! Rebooting...");
+    Serial.println("Connection Failed! Rebooting...");
     delay(1000);
     ESP.restart();
   }
-  WiFi.hostname("Hallway Motion Sensor");
-  //Serial.println("Ready");
-  //Serial.print("IP address: ");
-  //Serial.println(WiFi.localIP());
+  WiFi.hostname(mqtt_name);
+  Serial.println("Ready");
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
   MQTT.setServer(mqtt_server, 1883);
   MQTT.setCallback(callback);
 }
