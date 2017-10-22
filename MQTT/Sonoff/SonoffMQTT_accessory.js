@@ -16,8 +16,8 @@ var MQTT_NAME = 'sonoff' //MQTT topic that was set on the Sonoff firmware
 var options = {
   port: 1883,
   host: MQTT_IP,
-//  username: 'pi', enable only if you have authentication on your MQTT broker
-//  password: 'raspberry', enable only if you have authentication on your MQTT broker
+//  username: 'pi', //enable only if you have authentication on your MQTT broker
+//  password: 'raspberry', //enable only if you have authentication on your MQTT broker
   clientId: MQTT_NAME+'HAP'
 };
 var sonoffTopic = 'cmnd/'+MQTT_NAME+'/power';

@@ -11,14 +11,14 @@ var sonoffUUID = "hap-nodejs:accessories:sonoff:temperature:" + name; //change t
 var sonoffUsername = "1C:2A:3D:7D:5E:FA";
 var MQTT_NAME = 'sonoff' //MQTT topic that was set on the Sonoff firmware
 var MQTT_IP = 'localhost' //change this if your MQTT broker is different
-
+var sensorType = DHT22;
 
 var options = {
   port: 1883,
   host: MQTT_IP,
-//  username: 'pi', enable only if you have authentication on your MQTT broker
-//  password: 'raspberry', enable only if you have authentication on your MQTT broker
-  clientId: MQTT_NAME+'HAP'
+//  username: 'pi', //enable only if you have authentication on your MQTT broker
+//  password: 'raspberry', //enable only if you have authentication on your MQTT broker
+  clientId: MQTT_NAME+'TempHAP'
 };
 var sonoffTopic = 'cmnd/'+MQTT_NAME+'/status';
 var client = mqtt.connect(options);
@@ -61,7 +61,7 @@ sonoffTemp
     message = message.toString();
     mqttMSG = JSON.parse(message);
   //  console.log(mqttMSG.StatusSNS.DHT22.Temperature);
-    sonoffObject.currentTemperature = mqttMSG.StatusSNS.DHT22.Temperature;
+    sonoffObject.currentTemperature = mqttMSG.StatusSNS.sensorType.Temperature;
   });
 
 setInterval(function() {
@@ -72,4 +72,4 @@ setInterval(function() {
     .getService(Service.TemperatureSensor)
     .setCharacteristic(Characteristic.CurrentTemperature, sonoffObject.currentTemperature);
 
-}, 60000);
+}, 30000);

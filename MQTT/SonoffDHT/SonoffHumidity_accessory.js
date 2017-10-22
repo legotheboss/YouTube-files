@@ -9,16 +9,16 @@ var mqttMSG = 0;
 var name = "Sonoff Humidity Sensor"; //accessory name
 var sonoffUUID = "hap-nodejs:accessories:sonoff:Humidity:" + name; //change this to your preferences
 var sonoffUsername = "1A:2C:3A:4E:5E:FF";
-var MQTT_NAME = 'sonoff' //MQTT topic that was set on the Sonoff firmware
-var MQTT_IP = 'localhost' //change this if your MQTT broker is different
-
+var MQTT_NAME = 'sonoff'; //MQTT topic that was set on the Sonoff firmware
+var MQTT_IP = 'localhost'; //change this if your MQTT broker is different
+var sensorType = DHT22;
 
 var options = {
   port: 1883,
   host: MQTT_IP,
-//  username: 'pi', enable only if you have authentication on your MQTT broker
-//  password: 'raspberry', enable only if you have authentication on your MQTT broker
-  clientId: MQTT_NAME+'HAP'
+//  username: 'pi', //enable only if you have authentication on your MQTT broker
+//  password: 'raspberry', //enable only if you have authentication on your MQTT broker
+  clientId: MQTT_NAME+'HumiHAP'
 };
 var sonoffTopic = 'cmnd/'+MQTT_NAME+'/status';
 var client = mqtt.connect(options);
@@ -61,7 +61,7 @@ sonoffHumi
     message = message.toString();
     mqttMSG = JSON.parse(message);
   //  console.log(mqttMSG.StatusSNS.DHT22.Humidity);
-    sonoffObject.CurrentRelativeHumidity = mqttMSG.StatusSNS.DHT22.Humidity;
+    sonoffObject.CurrentRelativeHumidity = mqttMSG.StatusSNS.sensorType.Humidity;
   });
 
 setInterval(function() {
@@ -72,4 +72,4 @@ setInterval(function() {
     .getService(Service.HumiditySensor)
     .setCharacteristic(Characteristic.CurrentRelativeHumidity, sonoffObject.CurrentRelativeHumidity);
 
-}, 60000);
+}, 30000);
