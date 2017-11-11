@@ -11,7 +11,7 @@ var sonoffUUID = "hap-nodejs:accessories:sonoff:temperature:" + name; //change t
 var sonoffUsername = "1C:2A:3D:7D:5E:FA";
 var MQTT_NAME = 'sonoff' //MQTT topic that was set on the Sonoff firmware
 var MQTT_IP = 'localhost' //change this if your MQTT broker is different
-var sensorType = DHT22;
+var sensorType = 'DHT22';
 
 var options = {
   port: 1883,
