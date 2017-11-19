@@ -76,7 +76,6 @@ Camera.prototype.handleSnapshotRequest = function(request, callback) {
   });
 }
 
-
 Camera.prototype.handleCloseConnection = function(connectionID) {
   this.streamControllers.forEach(function(controller) {
     controller.handleCloseConnection(connectionID);

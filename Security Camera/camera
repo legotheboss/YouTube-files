@@ -3,12 +3,24 @@ echo "Starting Motioneye Installation"
 sleep 1
 clear
 cd /home/pi
-sudo apt-get remove libavcodec-extra-56 libavformat56 libavresample2 libavutil54
-sudo apt-get install libavutil54 libavformat56 libswscale3 -y
-sudo apt-get install python-pip python-dev curl libssl-dev libcurl4-openssl-dev libjpeg-dev libx264-142 libavcodec56 libavformat56 libmysqlclient18 libswscale3 libpq5 v4l-utils ffmpeg -y
-sudo wget https://github.com/Motion-Project/motion/releases/download/release-4.0.1/pi_stretch_motion_4.0.1-1_armhf.deb
-sudo dpkg -i pi_stretch_motion_4.0.1-1_armhf.deb
-sudo rm -rf pi_stretch_motion_4.0.1-1_armhf.deb
+sudo apt-get remove libavcodec-extra-57 libavformat57 libavresample2 libavutil55
+sudo apt-get install libavutil55 libavformat57 libswscale3 -y
+sudo apt-get install python-pip python-dev curl libssl-dev libcurl4-openssl-dev libmariadbclient18 libpq5 mysql-common ffmpeg -y
+if cat /etc/os-release | grep -q "jessie"; then
+    clear
+    echo "jessie set as raspbian release"
+    sleep 1
+    sudo wget "https://github.com/Motion-Project/motion/releases/download/release-4.1/pi_jessie_motion_4.1-1_armhf.deb"
+    sudo dpkg -i pi_jessie_motion_4.1-1_armhf.deb
+    sudo rm -rf pi_jessie_motion_4.1-1_armhf.deb
+elif cat /etc/os-release | grep -q "stretch"; then
+    clear
+    echo "stretch set as raspbian release"
+    sleep 1
+    sudo wget "https://github.com/Motion-Project/motion/releases/download/release-4.1/pi_stretch_motion_4.1-1_armhf.deb"
+    sudo dpkg -i pi_stretch_motion_4.1-1_armhf.deb
+    sudo rm -rf pi_stretch_motion_4.1-1_armhf.deb
+fi
 sudo pip install motioneye
 sudo mkdir -p /etc/motioneye
 sudo cp /usr/local/share/motioneye/extra/motioneye.conf.sample /etc/motioneye/motioneye.conf

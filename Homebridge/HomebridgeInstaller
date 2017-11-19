@@ -1,6 +1,6 @@
 cd /home/pi
 sudo apt-get update
-sudo apt-get remove nodejs nodejs-legacy -y
+sudo apt-get remove node nodejs nodejs-legacy -y
 sudo apt-get install git-core libnss-mdns libavahi-compat-libdnssd-dev -y
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-sudo npm install -g --unsafe-perm homebridge hap-nodejs node-gyp
+sudo curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo npm install -g --unsafe-perm node-gyp homebridge hap-nodejs

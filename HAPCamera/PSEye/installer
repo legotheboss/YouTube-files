@@ -20,12 +20,7 @@ clear
 echo "Installing camera-specific files"
 sleep 1
 clear
-sudo wget http://goo.gl/F2EB5M -O task
-sudo chmod +x task
 sudo systemctl stop motioneye
-sudo wget http://goo.gl/B1w9DR -O ffmpeg.deb
-sudo dpkg -i ffmpeg.deb
-sudo rm -rf ffmpeg.deb
 sudo systemctl start motioneye
 cd lib/
 sudo mv Camera.js OriginalCamera.js.bak
