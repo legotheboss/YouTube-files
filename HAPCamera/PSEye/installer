@@ -5,6 +5,7 @@ clear
 cd /home/pi
 sudo wget http://goo.gl/0Z8fyo -O motioneye
 sudo sh motioneye
+sudo rm -rf motioneye
 clear
 echo "Starting HomeKit camera Installation"
 sleep 1
