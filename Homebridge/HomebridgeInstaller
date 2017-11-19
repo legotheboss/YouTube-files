@@ -7,6 +7,5 @@ sudo dpkg -i node_latest_armhf.deb
 sudo rm -rf node_latest_armhf.deb
 sudo npm install -g node-gyp
 sudo npm install -g n
-sudo npm install -g npm
 sudo n lts
 sudo npm install -g --unsafe-perm homebridge hap-nodejs node-gyp
