@@ -9,7 +9,6 @@ var Service = require('./Service').Service;
 var Characteristic = require('./Characteristic').Characteristic;
 var StreamController = require('./StreamController').StreamController;
 var HomeKitTypes = require('./gen/HomeKitTypes');
-var cmd = require('node-cmd');
 var fs = require('fs');
 var ip = require('ip');
 var spawn = require('child_process').spawn;
