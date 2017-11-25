@@ -3,5 +3,5 @@ sudo apt-get update
 sudo apt-get remove node nodejs nodejs-legacy -y
 sudo apt-get install git-core libnss-mdns libavahi-compat-libdnssd-dev -y
 sudo curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-sudo apt-get install nodejs
+sudo apt-get install nodejs -y
 sudo npm install -g --unsafe-perm node-gyp homebridge hap-nodejs
