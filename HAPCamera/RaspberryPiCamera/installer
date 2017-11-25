@@ -1,0 +1,32 @@
+clear
+echo "Starting Motioneye Installation"
+sleep 1
+clear
+cd /home/pi
+sudo wget http://goo.gl/0Z8fyo -O motioneye
+sudo sh motioneye
+sudo rm -rf motioneye
+clear
+echo "Starting HomeKit camera Installation"
+sleep 1
+clear
+cd /home/pi/HAP-NodeJS
+clear
+echo "Ensuring HAP-NodeJS has all up-to-date prerequisites"
+sleep 1
+clear
+sudo npm install
+sudo npm install node-cmd
+clear
+echo "Installing camera-specific files"
+sleep 1
+clear
+sudo systemctl stop motioneye
+sudo systemctl start motioneye
+cd lib/
+sudo mv Camera.js OriginalCamera.js.bak
+sudo wget http://goo.gl/Maq3o7 -O Camera.js
+clear
+echo "Connect to motioneye at:"
+hostname -I | awk '{print $1}'
+sleep 5
