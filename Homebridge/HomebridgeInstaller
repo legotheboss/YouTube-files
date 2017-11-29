@@ -12,9 +12,15 @@ if uname -m | grep -q "armv6l"; then
     sudo npm install -g n
     sudo rm /usr/local/bin/node
     sudo rm -rf /usr/local/lib/node_modules/npm
-    sudo n 8.9.0
+    sudo n prune
+    sudo n 8.2.1
 else
     sudo curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
     sudo apt-get install nodejs -y
+    sudo npm install -g n
+    sudo rm /usr/local/bin/node
+    sudo rm -rf /usr/local/lib/node_modules/npm
+    sudo n prune
+    sudo n 8.2.1
 fi
 sudo npm install -g --unsafe-perm node-gyp homebridge hap-nodejs
