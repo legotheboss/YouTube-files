@@ -3,12 +3,29 @@ if type mosquitto>/dev/null; then
       echo "Mosquitto already installed, continuing with install"
    else
       echo "Mosquitto not detected, installing Mosquitto now"
-      sudo wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
-      sudo apt-key add mosquitto-repo.gpg.key
-      cd /etc/apt/sources.list.d/
-      sudo wget http://repo.mosquitto.org/debian/mosquitto-jessie.list
-      sudo apt-get update
-      sudo apt-get install mosquitto mosquitto-clients -y
+      if cat /etc/os-release | grep -q "jessie"; then
+        clear
+        sudo wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+        sudo apt-key add mosquitto-repo.gpg.key
+        sudo rm -rf mosquitto-repo.gpg.key
+        cd /etc/apt/sources.list.d/
+        sudo wget http://repo.mosquitto.org/debian/mosquitto-jessie.list
+        sudo apt-get update
+        sudo apt-get install mosquitto mosquitto-clients -y
+      elif cat /etc/os-release | grep -q "stretch"; then
+        clear
+        echo "stretch set as raspbian release"
+        sleep 1
+        wget http://ftp.us.debian.org/debian/pool/main/libw/libwebsockets/libwebsockets3_1.2.2-1_armhf.deb
+        wget http://ftp.us.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.2l-1~bpo8+1_armhf.deb
+        wget http://repo.mosquitto.org/debian/pool/main/m/mosquitto/mosquitto_1.4.14-0mosquitto1~nows1_armhf.deb
+        sudo dpkg -i libssl1.0.0_1.0.2l-1~bpo8+1_armhf.deb
+        sudo dpkg -i libwebsockets3_1.2.2-1_armhf.deb
+        sudo dpkg -i mosquitto_1.4.14-0mosquitto1~nows1_armhf.deb
+        sudo rm -rf libssl1.0.0_1.0.2l-1~bpo8+1_armhf.deb
+        sudo rm -rf libwebsockets3_1.2.2-1_armhf.deb
+        sudo rm -rf mosquitto_1.4.14-0mosquitto1~nows1_armhf.deb
+      fi
 fi
 cd /home/pi/HAP-NodeJS
 sudo npm install mqtt --save
