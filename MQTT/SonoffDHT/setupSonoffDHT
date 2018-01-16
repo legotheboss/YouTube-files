@@ -2,4 +2,3 @@ cd /home/pi/HAP-NodeJS/accessories
 sudo wget https://goo.gl/f9cEFX -O SonoffHumidity_accessory.js
 sudo wget https://goo.gl/J2oUqK -O SonoffTemperature_accessory.js
 clear
-

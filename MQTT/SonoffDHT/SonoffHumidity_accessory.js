@@ -61,7 +61,7 @@ sonoffHumi
     message = message.toString();
     mqttMSG = JSON.parse(message);
   //  console.log(mqttMSG.StatusSNS.DHT22.Humidity);
-    sonoffObject.CurrentRelativeHumidity = mqttMSG.StatusSNS.sensorType.Humidity;
+    sonoffObject.CurrentRelativeHumidity = mqttMSG.StatusSNS[sensorType]["Humidity"];
   });
 
 setInterval(function() {

@@ -61,7 +61,7 @@ sonoffTemp
     message = message.toString();
     mqttMSG = JSON.parse(message);
   //  console.log(mqttMSG.StatusSNS.DHT22.Temperature);
-    sonoffObject.currentTemperature = mqttMSG.StatusSNS.sensorType.Temperature;
+    sonoffObject.CurrentRelativeHumidity = mqttMSG.StatusSNS[sensorType]["Humidity"];
   });
 
 setInterval(function() {
