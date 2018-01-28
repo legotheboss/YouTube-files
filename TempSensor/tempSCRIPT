@@ -2,8 +2,9 @@ cd /home/pi/HAP-NodeJS/accessories
 sudo wget https://goo.gl/GwjodS
 sudo mv GwjodS TemperatureSensor_accessory.js
 cd ..
-sudo npm install ds18b20
-sudo modprobe w1-gpio && sudo modprobe w1_therm
+sudo npm install mc-tempsensor
+sudo modprobe w1-gpio
+sudo modprobe w1_therm
 sudo echo 'w1-gpio' >> /etc/modules
 sudo echo "w1_therm" >> /etc/modules
 sudo echo "dtoverlay=w1-gpio" >> /boot/config.txt

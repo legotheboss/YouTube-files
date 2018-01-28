@@ -2,16 +2,24 @@ var Accessory = require('../').Accessory;
 var Service = require('../').Service;
 var Characteristic = require('../').Characteristic;
 var uuid = require('../').uuid;
-var ds18b20 = require('ds18b20');
+var tempSensor = require('mc-tempsensor');
 var temperatureNAME = 'Temperature Sensor'; //the temperature sensor's name
 var uuidNAME = 'hap-nodejs:accessories:temperature-sensor'; //UUID name
 var dsSensor = '28-0215657fxxxx'; // the temperature sensor's id
+tempSensor.init(dsSensor);
 
 // here's the temperature sensor device that we'll expose to HomeKit
 var TEMP_SENSOR = {
-  currentTemperature: ds18b20.temperatureSync(dsSensor),
+  currentTemperature: 20,
   getTemperature: function() {
-    console.log("Getting the current temperature!");
+    tempSensor.readAndParse(function(err, data) {
+      if (err) {
+        console.log("error getting temperature");
+      } else {
+        TEMP_SENSOR.currentTemperature = parseFloat(data[0].temperature.celcius);
+      //  console.log('Temperature is ' + data[0].temperature.celcius + ' C');
+      }
+    })
     return TEMP_SENSOR.currentTemperature;
   },
 }
@@ -42,8 +50,9 @@ sensor
 // gets our temperature reading every 5 seconds
 setInterval(function() {
   // update the characteristic value so interested iOS devices can get notified
+
   sensor
     .getService(Service.TemperatureSensor)
-    .setCharacteristic(Characteristic.CurrentTemperature, TEMP_SENSOR.currentTemperature);
+    .setCharacteristic(Characteristic.CurrentTemperature, TEMP_SENSOR.getTemperature());
 
-}, 5000);
+}, 10000);
