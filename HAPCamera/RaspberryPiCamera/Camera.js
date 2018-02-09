@@ -30,8 +30,7 @@ function Camera() {
     srtp: true, // Supports SRTP AES_CM_128_HMAC_SHA1_80 encryption
     video: {
       resolutions: [
-        [1280, 720, 30],
-	[427, 240, 15]
+        [1024, 600, 30]
       ],
       codec: {
         profiles: [0, 1, 2], // Enum, please refer StreamController.VideoCodecParamProfileIDTypes
@@ -64,7 +63,7 @@ Camera.prototype.handleSnapshotRequest = function(request, callback) {
   let resolution = request.width + 'x' + request.height;
   var ffmpegImageSource = "-i http://localhost:8765/picture/1/current/"
   var imageSource = ffmpegImageSource !== undefined ? ffmpegImageSource : this.ffmpegSource;
-  let ffmpeg = spawn('ffmpeg', (imageSource + ' -t 1 -s '+ '1280x720' + ' -f image2 -').split(' '), {env: process.env});
+  let ffmpeg = spawn('ffmpeg', (imageSource + ' -t 1 -s '+ '1024x600' + ' -f image2 -').split(' '), {env: process.env});
   var imageBuffer = Buffer(0);
 
   ffmpeg.stdout.on('data', function(data) {
@@ -161,10 +160,10 @@ Camera.prototype.handleStreamRequest = function(request) {
     if (requestType == "start") {
       var sessionInfo = this.pendingSessions[sessionIdentifier];
       if (sessionInfo) {
-        var width = 1280;
-        var height = 720;
+        var width = 1024;
+        var height = 600;
         var fps = 30;
-        var bitrate = 1500;
+        var bitrate = 250;
 
         let videoInfo = request["video"];
         if (videoInfo) {
@@ -176,14 +175,14 @@ Camera.prototype.handleStreamRequest = function(request) {
             fps = expectedFPS;
           }
 
-        //  bitrate = videoInfo["max_bit_rate"];
+//          bitrate = videoInfo["max_bit_rate"];
         }
 
         let targetAddress = sessionInfo["address"];
         let targetVideoPort = sessionInfo["video_port"];
         let videoKey = sessionInfo["video_srtp"];
 
-	let ffmpegCommand = '-re -i http://localhost:8081 -threads 0 -vcodec h264_omx -an -pix_fmt yuv420p -r '+ fps +' -f rawvideo -tune zerolatency -vf scale='+ width +':'+ height +' -b:v '+ bitrate +'k -bufsize '+ bitrate +'k -payload_type 99 -ssrc 1 -f rtp -srtp_out_suite AES_CM_128_HMAC_SHA1_80 -srtp_out_params '+videoKey.toString('base64')+' srtp://'+targetAddress+':'+targetVideoPort+'?rtcpport='+targetVideoPort+'&localrtcpport='+targetVideoPort+'&pkt_size=1378';
+        let ffmpegCommand = '-re -i http://localhost:8081 -threads 0 -vcodec h264_omx -an -pix_fmt yuv420p -r '+ fps +' -f rawvideo -tune zerolatency -vf scale='+ width +':'+ height +' -b:v '+ bitrate +'k -bufsize '+ bitrate +'k -payload_type 99 -ssrc 1 -f rtp -srtp_out_suite AES_CM_128_HMAC_SHA1_80 -srtp_out_params '+videoKey.toString('base64')+' srtp://'+targetAddress+':'+targetVideoPort+'?rtcpport='+targetVideoPort+'&localrtcpport='+targetVideoPort+'&pkt_size=1378';
         let ffmpeg = spawn('ffmpeg', ffmpegCommand.split(' '), {env: process.env});
         this.ongoingSessions[sessionIdentifier] = ffmpeg;
       }
