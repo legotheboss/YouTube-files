@@ -31,7 +31,7 @@ function Camera() {
     video: {
       resolutions: [
         [1024, 600, 30],
-        [320, 240, 15]      
+        [320, 240, 15]
       ],
       codec: {
         profiles: [0, 1, 2], // Enum, please refer StreamController.VideoCodecParamProfileIDTypes
@@ -161,8 +161,8 @@ Camera.prototype.handleStreamRequest = function(request) {
     if (requestType == "start") {
       var sessionInfo = this.pendingSessions[sessionIdentifier];
       if (sessionInfo) {
-        var width = 1024;
-        var height = 600;
+        var width = 1280;
+        var height = 720;
         var fps = 30;
         var bitrate = 250;
 
