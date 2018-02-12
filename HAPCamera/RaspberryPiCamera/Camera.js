@@ -30,7 +30,8 @@ function Camera() {
     srtp: true, // Supports SRTP AES_CM_128_HMAC_SHA1_80 encryption
     video: {
       resolutions: [
-        [1024, 600, 30]
+        [1024, 600, 30],
+        [320, 240, 15]      
       ],
       codec: {
         profiles: [0, 1, 2], // Enum, please refer StreamController.VideoCodecParamProfileIDTypes
@@ -63,7 +64,7 @@ Camera.prototype.handleSnapshotRequest = function(request, callback) {
   let resolution = request.width + 'x' + request.height;
   var ffmpegImageSource = "-i http://localhost:8765/picture/1/current/"
   var imageSource = ffmpegImageSource !== undefined ? ffmpegImageSource : this.ffmpegSource;
-  let ffmpeg = spawn('ffmpeg', (imageSource + ' -t 1 -s '+ '1024x600' + ' -f image2 -').split(' '), {env: process.env});
+  let ffmpeg = spawn('ffmpeg', (imageSource + ' -t 1 -s '+ '1280x720' + ' -f image2 -').split(' '), {env: process.env});
   var imageBuffer = Buffer(0);
 
   ffmpeg.stdout.on('data', function(data) {

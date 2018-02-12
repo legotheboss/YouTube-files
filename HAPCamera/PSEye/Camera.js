@@ -31,7 +31,7 @@ function Camera() {
     video: {
       resolutions: [
         [640, 480, 30],
-	[320, 240, 15]
+	      [320, 240, 15]
       ],
       codec: {
         profiles: [0, 1, 2], // Enum, please refer StreamController.VideoCodecParamProfileIDTypes
