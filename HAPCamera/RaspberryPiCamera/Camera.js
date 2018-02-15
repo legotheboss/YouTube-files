@@ -30,7 +30,7 @@ function Camera() {
     srtp: true, // Supports SRTP AES_CM_128_HMAC_SHA1_80 encryption
     video: {
       resolutions: [
-        [1024, 600, 30],
+        [1280, 720, 30],
         [320, 240, 15]
       ],
       codec: {
@@ -161,8 +161,8 @@ Camera.prototype.handleStreamRequest = function(request) {
     if (requestType == "start") {
       var sessionInfo = this.pendingSessions[sessionIdentifier];
       if (sessionInfo) {
-        var width = 1280;
-        var height = 720;
+        var width = 1024;
+        var height = 600;
         var fps = 30;
         var bitrate = 250;
 
