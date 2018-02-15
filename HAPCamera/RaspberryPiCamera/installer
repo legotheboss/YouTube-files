@@ -22,8 +22,8 @@ echo "Installing camera-specific files"
 sleep 1
 clear
 sudo systemctl restart motioneye
-cd lib/
-sudo mv Camera.js OriginalCamera.js.bak
+cd /home/pi/HAP-NodeJS/lib/
+sudo mv Camera.js OriginalCamera.bak
 sudo wget https://goo.gl/VZZMYV -O Camera.js
 clear
 echo "Connect to motioneye at:"
