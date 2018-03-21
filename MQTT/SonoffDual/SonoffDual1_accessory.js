@@ -8,7 +8,7 @@ var mqttMSG = false;
 
 
 var name = "Sonoff Dual Outlet1"; //accessory name
-var sonoffUUID = "hap-nodejs:accessories:sonoffdual" + name; //change this to your preferences
+var sonoffUUID = "hap-nodejs:accessories:sonoffdual1" + name; //change this to your preferences
 var sonoffUsername = "1D:2D:31:4E:5A:F1";
 var MQTT_NAME = 'sonoffdual' //MQTT topic that was set on the Sonoff firmware
 
@@ -39,7 +39,7 @@ client.on('message', function(topic, message) {
 });
 
 client.on('connect', function () {
-  client.subscribe('stat/'+MQTT_NAME+'/POWER')
+  client.subscribe('stat/'+MQTT_NAME+'/POWER1')
 });
 
 var sonoffObject = {

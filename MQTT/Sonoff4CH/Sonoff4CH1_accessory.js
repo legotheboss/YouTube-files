@@ -5,7 +5,6 @@ var uuid = require('../').uuid;
 var mqtt = require('mqtt');
 var MQTT_IP = 'localhost' //change this if your MQTT broker is different
 var mqttMSG = false;
-sh
 
 var name = "Sonoff 4CH Outlet1"; //accessory name
 var sonoffUUID = "hap-nodejs:accessories:sonoff4CH1" + name; //change this to your preferences
