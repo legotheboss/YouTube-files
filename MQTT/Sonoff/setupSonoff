@@ -16,15 +16,16 @@ if type mosquitto>/dev/null; then
         clear
         echo "stretch set as raspbian release"
         sleep 1
-        wget http://ftp.us.debian.org/debian/pool/main/libw/libwebsockets/libwebsockets3_1.2.2-1_armhf.deb
+        wget http://ftp.us.debian.org/debian/pool/main/libw/libwebsockets/libwebsockets8_2.0.3-2_armhf.deb
         wget http://ftp.us.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.2l-1~bpo8+1_armhf.deb
-        wget http://repo.mosquitto.org/debian/pool/main/m/mosquitto/mosquitto_1.4.14-0mosquitto1~nows1_armhf.deb
+        wget http://repo.mosquitto.org/debian/pool/main/m/mosquitto/mosquitto_1.5-0mosquitto1_armhf.deb
+        sudo apt-get install libev4 -y
         sudo dpkg -i libssl1.0.0_1.0.2l-1~bpo8+1_armhf.deb
-        sudo dpkg -i libwebsockets3_1.2.2-1_armhf.deb
-        sudo dpkg -i mosquitto_1.4.14-0mosquitto1~nows1_armhf.deb
+        sudo dpkg -i libwebsockets8_2.0.3-2_armhf.deb
+        sudo dpkg -i mosquitto_1.5-0mosquitto1_armhf.deb
         sudo rm -rf libssl1.0.0_1.0.2l-1~bpo8+1_armhf.deb
-        sudo rm -rf libwebsockets3_1.2.2-1_armhf.deb
-        sudo rm -rf mosquitto_1.4.14-0mosquitto1~nows1_armhf.deb
+        sudo rm -rf libwebsockets8_2.0.3-2_armhf.deb
+        sudo rm -rf mosquitto_1.5-0mosquitto1_armhf.deb
       fi
 fi
 cd /home/pi/HAP-NodeJS
