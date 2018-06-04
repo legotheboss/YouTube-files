@@ -42,19 +42,24 @@ var SONOFF_B1 = {
     //console.log("Setting light brightness to %s", brightness);
     var message = SONOFF_B1.hue + ',' + brightness + ',' + SONOFF_B1.saturation;
     client.publish(colorTopic, message);
-    client.publish(dimmerTopic, String(brightness));
+    client.publish(dimmerTopic, String(0));
     SONOFF_B1.brightness = brightness;
   },
   setHue: function(hue){
-    //console.log("Setting light Hue to %s", hue);
-    var message = hue + ',' + SONOFF_B1.brightness + ',' + SONOFF_B1.saturation;
-    client.publish(colorTopic, message);
-    SONOFF_B1.hue = hue;
+   //console.log("Setting light Hue to %s", hue);
+   var message = hue + ',' + SONOFF_B1.brightness + ',' + SONOFF_B1.saturation;
+   client.publish(colorTopic, message);
+   client.publish(dimmerTopic, String(0));
+   SONOFF_B1.hue = hue;
   },
   setSaturation: function(saturation){
     //console.log("Setting light Saturation to %s", saturation);
     var message = SONOFF_B1.hue + ',' + SONOFF_B1.brightness + ',' + saturation;
     client.publish(colorTopic, message);
+    client.publish(dimmerTopic, String(0));
+    if(saturation==0 && SONOFF_B1.hue == 0){
+	     client.publish(dimmerTopic, String(100));
+    }
     SONOFF_B1.saturation = saturation;
   },
   identify: function() {
@@ -110,11 +115,11 @@ light
     var err = null; // in case there were any problems
 
     if (SONOFF_B1.powerOn) {
-      //console.log("Are we on? Yes.");
+      ////console.log("Are we on? Yes.");
       callback(err, true);
     }
     else {
-      //console.log("Are we on? No.");
+      ////console.log("Are we on? No.");
       callback(err, false);
     }
   });
@@ -155,7 +160,7 @@ light
 
 //Sonoff MQTT handling which allows the status to match the Sonoff's power status
 client.on('message', function(topic, message) {
-//  //console.log(message.toString());
+ //console.log(message.toString());
  message = message.toString();
  mqttMSG = true;
  if (message.includes('ON')){
