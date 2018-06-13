@@ -19,7 +19,7 @@ if type mosquitto>/dev/null; then
         wget http://ftp.us.debian.org/debian/pool/main/libw/libwebsockets/libwebsockets8_2.0.3-2_armhf.deb
         wget http://ftp.us.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.2l-1~bpo8+1_armhf.deb
         wget http://repo.mosquitto.org/debian/pool/main/m/mosquitto/mosquitto_1.5-0mosquitto1_armhf.deb
-        sudo apt-get install libev4 -y
+        sudo apt-get install libuv1 libev4 -y
         sudo dpkg -i libssl1.0.0_1.0.2l-1~bpo8+1_armhf.deb
         sudo dpkg -i libwebsockets8_2.0.3-2_armhf.deb
         sudo dpkg -i mosquitto_1.5-0mosquitto1_armhf.deb
