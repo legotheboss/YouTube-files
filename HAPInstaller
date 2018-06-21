@@ -23,6 +23,7 @@ else
     sudo n prune
     sudo n 8.2.1
 fi
+sudo apt-get install gcc g++ make -y
 sudo npm install -g node-gyp
 sudo git clone --branch v0.4.27 https://github.com/KhaosT/HAP-NodeJS.git
 cd HAP-NodeJS/

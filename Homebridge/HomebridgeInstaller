@@ -23,4 +23,5 @@ else
     sudo n prune
     sudo n 8.2.1
 fi
+sudo apt-get install gcc g++ make -y
 sudo npm install -g --unsafe-perm node-gyp homebridge hap-nodejs
