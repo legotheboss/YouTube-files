@@ -1,5 +1,5 @@
 clear
-echo "Starting Motioneye Installation"
+echo "Starting HK MotionEye Integration"
 cd /home/pi/HAP-NodeJS
 sudo npm install api-quick
 cd /home/pi/HAP-NodeJS/accessories
