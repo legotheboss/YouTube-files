@@ -1,0 +1,13 @@
+clear
+echo "Starting Motioneye Installation"
+cd /home/pi/HAP-NodeJS
+sudo npm install api-quick
+cd /home/pi/HAP-NodeJS/accessories
+sudo wget https://raw.githubusercontent.com/legotheboss/YouTube-files/master/HAPCamera/HKMotionEye/HAPMotionSensor_accessory.js -O HKMotionEye_accessory.js
+clear
+echo 'Connect to MotionEye to finish configuration. IP address:'
+tput bold
+ip=$(hostname -I | awk '{print $1}')
+ip=$ip":8765"
+echo $ip
+tput sgr0
