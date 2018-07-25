@@ -1,0 +1,3 @@
+cd /home/pi/HAP-NodeJS/accessories
+sudo wget https://raw.githubusercontent.com/legotheboss/YouTube-files/master/MQTT/SonoffPIR/SonoffPIR_accessory.js
+clear
