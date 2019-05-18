@@ -16,16 +16,18 @@ var falseAlert = false;
 var GARAGE_DOOR = {
   opened: false,
   open: function() {
-    if(!GARAGE_DOOR.opened)
-    console.log("Opening the Garage!");
-    cmd.run('sudo python /home/pi/HAP-NodeJS/python/garage.py');
-    GARAGE_DOOR.opened = true;
+    if(!GARAGE_DOOR.opened){
+      console.log("Opening the Garage!");
+      cmd.run('sudo python /home/pi/HAP-NodeJS/python/garage.py');
+      GARAGE_DOOR.opened = true;
+    }
   },
   close: function() {
-    if(GARAGE_DOOR.opened)
-    console.log("Closing the Garage!");
-    cmd.run('sudo python /home/pi/HAP-NodeJS/python/garage.py');
-    GARAGE_DOOR.opened = false;
+    if(GARAGE_DOOR.opened){
+      console.log("Closing the Garage!");
+      cmd.run('sudo python /home/pi/HAP-NodeJS/python/garage.py');
+      GARAGE_DOOR.opened = false;
+    }
   },
   identify: function() {
     console.log("Identify the Garage");
