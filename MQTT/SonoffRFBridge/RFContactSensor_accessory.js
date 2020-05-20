@@ -24,7 +24,7 @@ var client = mqtt.connect(options);
 var contactSensorUUID = "hap-nodejs:accessories:RFcontactsensor"+SENSOR_IDENTIFIER;
 
 client.on('connect', function () {
-  client.subscribe('stat/'+MQTT_NAME+'/RESULT')
+  client.subscribe('tele/'+MQTT_NAME+'/RESULT')
 });
 
 var contactSensorObject = {
